@@ -42,6 +42,15 @@ class JSCodeGen(CodeGenerator):
 			val = val.encode('utf-8')
 		self.write(repr(val))
 	
+	def visit_CondExpr(self, node, frame):
+		self.write('(')
+		self.visit(node.test, frame)
+		self.write(' ? ')
+		self.visit(node.expr1, frame)
+		self.write(' : ')
+		self.visit(node.expr2, frame)
+		self.write(')')
+	
 	def visit_If(self, node, frame):
 		
 		self.newline()

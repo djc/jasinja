@@ -16,6 +16,9 @@ def pytest(env, src, data):
 WORKS = [
 	('{{ test }}', {'test': 'crap'}),
 	('{% if a %}x{% endif %}', {'a': True}),
+	('{% if a %}c{% endif %}b', {'a': False}),
+	('{{ 1 if a else 2 }}', {'a': True}),
+	('{{ 1 if a else 2 }}', {'a': False}),
 ]
 
 # next:
