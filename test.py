@@ -19,6 +19,7 @@ WORKS = [
 	('{% if a %}c{% endif %}b', {'a': False}),
 	('{{ 1 if a else 2 }}', {'a': True}),
 	('{{ 1 if a else 2 }}', {'a': False}),
+	('{% if a %}d{% else %}e{% endif %}', {'a': False})
 ]
 
 # next:

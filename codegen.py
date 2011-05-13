@@ -63,7 +63,17 @@ class JSCodeGen(CodeGenerator):
 			self.visit(n, frame)
 		
 		self.outdent()
+		if not node.else_:
+			self.writeline('}')
+			return
+		
+		self.writeline('} else {')
+		self.indent()
+		for n in node.else_:
+			self.visit(n, frame)
+		self.outdent()
 		self.writeline('}')
+		
 
 def compile(env, src):
 	return Parser(env, src, 'test', 'test.html').parse()
