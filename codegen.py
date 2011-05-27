@@ -6,23 +6,60 @@ PREFIX = 'prefix.js'
 
 class JSCodeGen(CodeGenerator):
 	
+	def jsmacro(self, node, frame):
+		
+		self.writeline('')
+		self.write('"%s": function(' % node.name)
+		for n in node.args:
+			self.write(n.name)
+		self.write(') {')
+		self.indent()
+		self.writeline('var _buf = [];')
+		
+		frame = Frame(frame.eval_ctx, frame)
+		for n in node.body:
+			self.visit(n, frame)
+		
+		self.writeline('return _buf.join("");')
+		self.outdent()
+		self.newline()
+		self.write('}')
+	
 	def visit_Template(self, node, frame=None):
 		
 		with open(PREFIX) as f:
 			for ln in f:
 				self.writeline(ln.rstrip())
 		
+		frame = Frame(EvalContext(self.environment, self.name))
+		frame.buffer = '_buf'
+		
 		self.writeline('')
 		self.writeline('var template = {')
 		self.indent()
+		self.writeline('')
+		
+		self.writeline('')
+		self.write('"macros": ')
+		macros = list(node.find_all(nodes.Macro))
+		if not macros:
+			self.write('{},')
+			self.writeline('')
+		else:
+			self.write('{')
+			self.indent()
+			self.writeline('')
+			for i, n in enumerate(macros):
+				self.jsmacro(n, frame)
+				if i != len(macros) - 1: self.write(',')
+			self.writeline('')
+			self.outdent()
+			self.writeline('},')
 		
 		self.writeline('')
 		self.writeline('"render": function(ctx) {')
 		self.indent()
 		self.writeline('var _buf = [];')
-		
-		frame = Frame(EvalContext(self.environment, self.name))
-		frame.buffer = '_buf'
 		
 		for n in node.body:
 			self.visit(n, frame)
@@ -35,15 +72,28 @@ class JSCodeGen(CodeGenerator):
 		self.outdent()
 		self.writeline('};')
 	
+	def visit_Macro(self, node, frame):
+		pass
+	
+	def visit_Call(self, node, frame):
+		self.write('this.macros.' + node.node.name)
+		self.write('(')
+		for n in node.args:
+			self.visit(n, frame)
+		self.write(')')
+		
 	def visit_Output(self, node, frame):
 		for n in node.nodes:
 			self.newline()
 			self.write('_buf.push(')
 			self.visit(n, frame)
 			self.write(');')
-	
+		
 	def visit_Name(self, node, frame):
-		self.write('ctx["%s"]' % node.name)
+		if frame.parent is None:
+			self.write('ctx["%s"]' % node.name)
+		else:
+			self.write(node.name)
 	
 	def visit_TemplateData(self, node, frame):
 		val = node.as_const(frame.eval_ctx)
