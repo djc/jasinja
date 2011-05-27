@@ -2,7 +2,7 @@ var filters = {
 
     "_slice": function(val, start, stop) {
         if (typeof(val) == "string") {
-        	return val.substring(start, stop);
+            return val.substring(start, stop);
         } else if (val instanceof Array) {
             return val.slice(start, stop);
         }
