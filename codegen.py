@@ -2,8 +2,6 @@ from jinja2.compiler import CodeGenerator, Frame, EvalContext
 from jinja2.parser import Parser
 from jinja2 import nodes
 
-PREFIX = 'prefix.js'
-
 class JSCodeGen(CodeGenerator):
 	
 	def jsmacro(self, node, frame):
