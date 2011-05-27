@@ -184,7 +184,8 @@ def generate(env, templates):
 	src = open('meta.js').read()
 	return src.replace('[DATA]', ',\n    \n'.join(out))
 
-def pygen(env, tmpl):
+def pygen(env, name):
+	src, fn, up = env.loader.get_source(env, name)
 	gen = CodeGenerator(env, 'blah', 'index.html', None, False)
-	gen.visit(tmpl)
+	gen.visit(compile(env, src))
 	return gen.stream.getvalue()
