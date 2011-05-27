@@ -20,6 +20,7 @@ TESTS = [
 		{'z': 512, 'y': 3},
 	),
 	('{{ x is none }}', {'x': None}),
+	('{{ "%.2f%%"|format(a) }}', {'a': 5}),
 ]
 
 def loader(i):
