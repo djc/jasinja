@@ -21,6 +21,7 @@ WORKS = [
 	('{{ 1 if a else 2 }}', {'a': False}),
 	('{% if a %}d{% else %}e{% endif %}', {'a': False}),
 	('{% if a %}f{% elif b %}g{% endif %}', {'b': True}),
+	("{{ '%4.2f'|format(x) }}", {'x': 17.0})
 ]
 
 # next:

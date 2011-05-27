@@ -1,0 +1,19 @@
+var filters = {
+
+    "format": function(fmt, vals) {
+        var regex = new RegExp('\%.*?[fis]');
+        while (regex.test(fmt)) {
+	        var m = regex.exec(fmt)[0];
+	        var type = m.substring(m.length - 1);
+        	var val = vals.shift();
+	        if (type == "f") {
+	        	val = parseFloat(val);
+	        	var mods = m.substring(1, m.length - 1).split('.');
+	        	val = val.toFixed(parseInt(mods[1], 10));
+	        	fmt = fmt.replace(m, val);
+	        }
+        }
+        return fmt;
+    }
+
+};

@@ -1,12 +1,20 @@
 from jinja2.compiler import CodeGenerator, Frame, EvalContext
 from jinja2.parser import Parser
 
+PREFIX = 'prefix.js'
+
 class JSCodeGen(CodeGenerator):
 	
 	def visit_Template(self, node, frame=None):
 		
+		with open(PREFIX) as f:
+			for ln in f:
+				self.writeline(ln.rstrip())
+		
+		self.writeline('')
 		self.writeline('var template = {')
 		self.indent()
+		
 		self.writeline('')
 		self.writeline('"render": function(ctx) {')
 		self.indent()
@@ -50,6 +58,19 @@ class JSCodeGen(CodeGenerator):
 		self.write(' : ')
 		self.visit(node.expr2, frame)
 		self.write(')')
+	
+	def visit_Filter(self, node, frame):
+		self.write('filters.' + node.name + '(')
+		self.visit(node.node, frame)
+		self.write(', [')
+		
+		first = True
+		for n in node.args:
+			if not first: self.write(', ')
+			self.visit(n, frame)
+			first = False
+		
+		self.write('])')
 	
 	def visit_If(self, node, frame):
 		
