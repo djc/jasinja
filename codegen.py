@@ -27,6 +27,7 @@ class JSCodeGen(CodeGenerator):
 		
 		frame = Frame(EvalContext(self.environment, self.name))
 		frame.buffer = '_buf'
+		frame.toplevel = True
 		
 		self.indent()
 		self.writeline('')
