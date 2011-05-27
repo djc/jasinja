@@ -25,3 +25,8 @@ var filters = {
     }
 
 };
+
+var templates = {
+[DATA]
+    
+};

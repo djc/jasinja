@@ -17,12 +17,15 @@ TESTS = [
 	('{% macro x(y) %}{{ y / 2 }}{% endmacro %}{{ x(z) }}', {'z': 512}),
 ]
 
+def loader(i):
+	return jinja2.DictLoader({'index': TESTS[i][0]})
+
 def jstest(env, src, data):
 	run = spidermonkey.Runtime()
 	ctx = run.new_context()
-	js = codegen.generate(env, codegen.compile(env, src))
+	js = codegen.generate(env, ['index'])
 	jsobj = json.dumps(data)
-	code = js + '\ntemplate.render(%s);' % jsobj
+	code = js + '\ntemplates.index.render(%s);' % jsobj
 	return ctx.execute(code)
 
 def pytest(env, src, data):
@@ -32,12 +35,12 @@ def pytest(env, src, data):
 def run(i, quiet=True):
 	
 	src, data = TESTS[i]
-	env = jinja2.Environment()
+	env = jinja2.Environment(loader=loader(i))
 	ast = codegen.compile(env, src)
 	
 	if not quiet:
 		print ast
-		print codegen.generate(env, ast)
+		print codegen.generate(env, ['index'])
 	
 	js = jstest(env, src, data)
 	py = pytest(env, src, data)

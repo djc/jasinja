@@ -27,15 +27,12 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_Template(self, node, frame=None):
 		
-		with open(PREFIX) as f:
-			for ln in f:
-				self.writeline(ln.rstrip())
-		
 		frame = Frame(EvalContext(self.environment, self.name))
 		frame.buffer = '_buf'
 		
+		self.indent()
 		self.writeline('')
-		self.writeline('var template = {')
+		self.writeline('"%s": {' % self.name)
 		self.indent()
 		self.writeline('')
 		
@@ -44,7 +41,6 @@ class JSCodeGen(CodeGenerator):
 		macros = list(node.find_all(nodes.Macro))
 		if not macros:
 			self.write('{},')
-			self.writeline('')
 		else:
 			self.write('{')
 			self.indent()
@@ -69,8 +65,8 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('}')
 		self.outdent()
 		self.writeline('')
-		self.outdent()
-		self.writeline('};')
+		self.writeline('}')
+		self.writeline('')
 	
 	def visit_Macro(self, node, frame):
 		pass
@@ -175,14 +171,20 @@ class JSCodeGen(CodeGenerator):
 		self.outdent()
 		self.writeline('}')
 		
-
 def compile(env, src):
 	return Parser(env, src, 'test', 'test.html').parse()
 
-def generate(env, tmpl):
-	gen = JSCodeGen(env, 'blah', 'index.html', None, False)
-	gen.visit(tmpl)
-	return gen.stream.getvalue()
+def generate(env, templates):
+	
+	out = []
+	for name in templates:
+		src, fn, up = env.loader.get_source(env, name)
+		gen = JSCodeGen(env, name, fn, None, False)
+		gen.visit(compile(env, src))
+		out.append(gen.stream.getvalue().rstrip())
+	
+	src = open('meta.js').read()
+	return src.replace('[DATA]', ',\n    \n'.join(out))
 
 def pygen(env, tmpl):
 	gen = CodeGenerator(env, 'blah', 'index.html', None, False)
