@@ -60,6 +60,11 @@ class JSCodeGen(CodeGenerator):
 		self.visit(node.expr2, frame)
 		self.write(')')
 	
+	def visit_Getattr(self, node, frame):
+		self.visit(node.node, frame)
+		self.write('.')
+		self.write(node.attr)
+	
 	def visit_Getitem(self, node, frame):
 		if isinstance(node.arg, nodes.Slice):
 			
