@@ -1,19 +1,7 @@
 import codegen, jinja2, spidermonkey, sys
 import simplejson as json
 
-def jstest(env, src, data):
-	run = spidermonkey.Runtime()
-	ctx = run.new_context()
-	js = codegen.generate(env, codegen.compile(env, src))
-	jsobj = json.dumps(data)
-	code = js + '\ntemplate.render(%s);' % jsobj
-	return ctx.execute(code)
-
-def pytest(env, src, data):
-	tmpl = env.from_string(src)
-	return tmpl.render(data)
-
-WORKS = [
+TESTS = [
 	('{{ test }}', {'test': 'crap'}),
 	('{% if a %}x{% endif %}', {'a': True}),
 	('{% if a %}c{% endif %}b', {'a': False}),
@@ -29,15 +17,48 @@ WORKS = [
 	('{% macro x(y) %}{{ y / 2 }}{% endmacro %}{{ x(z) }}', {'z': 512}),
 ]
 
-# next:
-# - assignment + cond-expr
-# - for-loop
+def jstest(env, src, data):
+	run = spidermonkey.Runtime()
+	ctx = run.new_context()
+	js = codegen.generate(env, codegen.compile(env, src))
+	jsobj = json.dumps(data)
+	code = js + '\ntemplate.render(%s);' % jsobj
+	return ctx.execute(code)
 
-src, data = WORKS[int(sys.argv[1])]
-env = jinja2.Environment()
-ast = codegen.compile(env, src)
-print ast
-print codegen.generate(env, ast)
+def pytest(env, src, data):
+	tmpl = env.from_string(src)
+	return tmpl.render(data)
 
-print 'js:', repr(jstest(env, src, data))
-print 'py:', repr(pytest(env, src, data))
+def run(i, quiet=True):
+	
+	src, data = TESTS[i]
+	env = jinja2.Environment()
+	ast = codegen.compile(env, src)
+	
+	if not quiet:
+		print ast
+		print codegen.generate(env, ast)
+	
+	js = jstest(env, src, data)
+	py = pytest(env, src, data)
+	
+	if not quiet:
+		print 'js:', repr(js)
+		print 'py:', repr(py)
+	
+	if js.isdigit():
+		return float(js) == float(py)
+	return js == py
+
+def test():
+	for i, t in enumerate(TESTS):
+		res = run(i)
+		sys.stdout.write('.' if res else 'F')
+	sys.stdout.write('\n')
+
+if __name__ == '__main__':
+	args = sys.argv[1:]
+	if args:
+		run(int(args[0]), False)
+	else:
+		test()
