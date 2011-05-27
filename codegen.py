@@ -146,6 +146,11 @@ class JSCodeGen(CodeGenerator):
 		
 		self.write('])')
 	
+	def visit_Test(self, node, frame):
+		self.write('tests.' + node.name + '(')
+		self.visit(node.node, frame)
+		self.write(')')
+	
 	def visit_If(self, node, frame):
 		
 		self.newline()

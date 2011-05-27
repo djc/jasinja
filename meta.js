@@ -26,6 +26,12 @@ var filters = {
 
 };
 
+var tests = {
+    "none": function(val) {
+        return val === null;
+    }
+}
+
 var templates = {
 [DATA]
     

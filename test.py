@@ -15,6 +15,7 @@ TESTS = [
 	('{{ "%.6f"|format(a / b) }}', {'a': 5.0, 'b': 3}),
 	('{{ "%.1f"|format(a.x / b.y * 100) }}', {'a': {'x': 20}, 'b': {'y': 5}}),
 	('{% macro x(y) %}{{ y / 2 }}{% endmacro %}{{ x(z) }}', {'z': 512}),
+	('{{ x is none }}', {'x': None}),
 ]
 
 def loader(i):
