@@ -8,8 +8,11 @@ class JSCodeGen(CodeGenerator):
 		
 		self.writeline('')
 		self.write('"%s": function(' % node.name)
+		first = True
 		for n in node.args:
+			if not first: self.write(', ')
 			self.write(n.name)
+			first = False
 		self.write(') {')
 		self.indent()
 		self.writeline('var _buf = [];')
@@ -73,8 +76,11 @@ class JSCodeGen(CodeGenerator):
 	def visit_Call(self, node, frame):
 		self.write('this.macros.' + node.node.name)
 		self.write('(')
+		first = True
 		for n in node.args:
+			if not first: self.write(', ')
 			self.visit(n, frame)
+			first = False
 		self.write(')')
 		
 	def visit_Output(self, node, frame):

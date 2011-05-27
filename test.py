@@ -15,6 +15,10 @@ TESTS = [
 	('{{ "%.6f"|format(a / b) }}', {'a': 5.0, 'b': 3}),
 	('{{ "%.1f"|format(a.x / b.y * 100) }}', {'a': {'x': 20}, 'b': {'y': 5}}),
 	('{% macro x(y) %}{{ y / 2 }}{% endmacro %}{{ x(z) }}', {'z': 512}),
+	(
+		'{% macro x(y, z) %}{{ y + z }}{% endmacro %}{{ x(y, z) }}',
+		{'z': 512, 'y': 3},
+	),
 	('{{ x is none }}', {'x': None}),
 ]
 
