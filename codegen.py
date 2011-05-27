@@ -1,5 +1,6 @@
 from jinja2.compiler import CodeGenerator, Frame, EvalContext
 from jinja2.parser import Parser
+from jinja2 import nodes
 
 PREFIX = 'prefix.js'
 
@@ -58,6 +59,30 @@ class JSCodeGen(CodeGenerator):
 		self.write(' : ')
 		self.visit(node.expr2, frame)
 		self.write(')')
+	
+	def visit_Getitem(self, node, frame):
+		if isinstance(node.arg, nodes.Slice):
+			
+			assert node.arg.step is None
+			self.write('filters._slice(')
+			self.visit(node.node, frame)
+			self.write(', ')
+			
+			if node.arg.start is not None:
+				self.visit(node.arg.start, frame)
+			else:
+				self.write('0')
+			
+			self.write(', ')
+			if node.arg.stop is not None:
+				self.visit(node.arg.stop, frame)
+			else:
+				self.write('undefined')
+			
+			self.write(')')
+			
+		else:
+			assert False
 	
 	def visit_Filter(self, node, frame):
 		self.write('filters.' + node.name + '(')

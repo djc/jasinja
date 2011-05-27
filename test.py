@@ -21,7 +21,8 @@ WORKS = [
 	('{{ 1 if a else 2 }}', {'a': False}),
 	('{% if a %}d{% else %}e{% endif %}', {'a': False}),
 	('{% if a %}f{% elif b %}g{% endif %}', {'b': True}),
-	("{{ '%4.2f'|format(x) }}", {'x': 17.0})
+	("{{ '%4.2f'|format(x) }}", {'x': 17.0}),
+	('{{ d[:7] }}', {'d': '2011-05-27'}),
 ]
 
 # next:
@@ -29,7 +30,6 @@ WORKS = [
 # - assignment + cond-expr
 # - for-loop
 # - object access
-# - filters
 
 src, data = WORKS[int(sys.argv[1])]
 env = jinja2.Environment()
