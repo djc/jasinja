@@ -29,10 +29,8 @@ WORKS = [
 ]
 
 # next:
-# - if/elif/else/endif
 # - assignment + cond-expr
 # - for-loop
-# - object access
 
 src, data = WORKS[int(sys.argv[1])]
 env = jinja2.Environment()
