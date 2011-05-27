@@ -17,7 +17,7 @@ var filters = {
 	        if (type == "f") {
 	        	val = parseFloat(val);
 	        	var mods = m.substring(1, m.length - 1).split('.');
-	        	val = val.toFixed(parseInt(mods[1], 10));
+	        	if (mods[1]) val = val.toFixed(parseInt(mods[1], 10));
 	        	fmt = fmt.replace(m, val);
 	        }
         }
