@@ -29,6 +29,22 @@ class JSCodeGen(CodeGenerator):
 		self.newline()
 		self.write('}')
 	
+	def block(self, node, frame):
+		
+		self.writeline('')
+		self.write('"%s": function(ctx) {' % node.name)
+		self.indent()
+		self.writeline('var _buf = [];')
+		
+		frame = Frame(frame.eval_ctx, frame)
+		for n in node.body:
+			self.visit(n, frame)
+		
+		self.writeline('return _buf.join("");')
+		self.outdent()
+		self.newline()
+		self.write('}')
+	
 	def visit_Template(self, node, frame=None):
 		
 		frame = Frame(EvalContext(self.environment, self.name))
@@ -58,20 +74,50 @@ class JSCodeGen(CodeGenerator):
 			self.writeline('},')
 		
 		self.writeline('')
-		self.writeline('"render": function(ctx) {')
+		self.write('"blocks": ')
+		blocks = list(node.find_all(nodes.Block))
+		if not blocks:
+			self.write('{},')
+		else:
+			self.write('{')
+			self.indent()
+			self.writeline('')
+			for i, n in enumerate(blocks):
+				self.block(n, frame)
+				if i != len(blocks) - 1: self.write(',')
+			self.writeline('')
+			self.outdent()
+			self.writeline('},')
+		
+		self.writeline('')
+		self.writeline('"render": function(ctx, tmpl) {')
 		self.indent()
-		self.writeline('var _buf = [];')
 		
-		for n in node.body:
-			self.visit(n, frame)
+		extends = node.find(nodes.Extends)
+		if extends:
+			self.newline()
+			self.write('return templates[')
+			self.visit(extends.template, frame)
+			self.write('].render(ctx, this);')
+		else:
+			self.writeline('tmpl = tmpl === undefined ? this : tmpl;')
+			self.writeline('var _buf = [];')
+			for n in node.body:
+				self.visit(n, frame)
+			self.writeline('return _buf.join("");')
 		
-		self.writeline('return _buf.join("");')
 		self.outdent()
 		self.writeline('}')
 		self.outdent()
 		self.writeline('')
 		self.writeline('}')
 		self.writeline('')
+	
+	def visit_Block(self, node, frame):
+		self.writeline('_buf.push(tmpl.blocks["%s"](ctx));' % node.name)
+	
+	def visit_Extends(self, node, frame):
+		pass
 	
 	def visit_Macro(self, node, frame):
 		pass
