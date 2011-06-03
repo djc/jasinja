@@ -57,10 +57,14 @@ def run(i, quiet=True):
 	
 	res = js == py
 	if isinstance(js, str) and js.isdigit():
-		return float(js) == float(py)
+		res = float(js) == float(py)
 	if {'true': 'True', 'false': 'False'}.get(js, js) == py:
-		return True
-	return js == py
+		res = True
+	
+	if not quiet:
+		print 'EQ:', res
+	
+	return res
 
 def test():
 	for i, t in enumerate(TESTS):
