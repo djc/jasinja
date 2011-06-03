@@ -187,7 +187,10 @@ class JSCodeGen(CodeGenerator):
 			self.write(')')
 			
 		else:
-			assert False
+			self.visit(node.node, frame)
+			self.write('[')
+			self.visit(node.arg, frame)
+			self.write(']')
 	
 	def visit_Filter(self, node, frame):
 		self.write('filters.' + node.name + '(')

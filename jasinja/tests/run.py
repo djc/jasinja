@@ -26,6 +26,7 @@ TESTS = [
 	('{{ x is none }}', {'x': None}),
 	('{{ "%.2f%%"|format(a) }}', {'a': 5}),
 	(FS('basic-blocks'), {}),
+	('{{ a[x] }}', {'a': {'y': 1}, 'x': 'y'}),
 ]
 
 def loader(i):
