@@ -184,7 +184,10 @@ class JSCodeGen(CodeGenerator):
 def compile(env, src):
 	return Parser(env, src, 'test', 'test.html').parse()
 
-def generate(env, templates):
+def generate(env, templates=None):
+	
+	if templates is None:
+		templates = env.loader.list_templates()
 	
 	out = []
 	for name in templates:

@@ -26,16 +26,16 @@ TESTS = [
 def loader(i):
 	return jinja2.DictLoader({'index': TESTS[i][0]})
 
-def jstest(env, src, data):
+def jstest(env, data):
 	run = spidermonkey.Runtime()
 	ctx = run.new_context()
-	js = codegen.generate(env, ['index'])
+	js = codegen.generate(env)
 	jsobj = json.dumps(data)
 	code = js + '\ntemplates.index.render(%s);' % jsobj
 	return ctx.execute(code)
 
-def pytest(env, src, data):
-	tmpl = env.from_string(src)
+def pytest(env, data):
+	tmpl = env.get_template('index')
 	return tmpl.render(data)
 
 def run(i, quiet=True):
@@ -46,10 +46,10 @@ def run(i, quiet=True):
 	
 	if not quiet:
 		print ast
-		print codegen.generate(env, ['index'])
+		print codegen.generate(env)
 	
-	js = jstest(env, src, data)
-	py = pytest(env, src, data)
+	js = jstest(env, data)
+	py = pytest(env, data)
 	
 	if not quiet:
 		print 'js:', repr(js)
