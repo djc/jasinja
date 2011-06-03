@@ -55,7 +55,7 @@ def run(i, quiet=True):
 		print 'js:', repr(js)
 		print 'py:', repr(py)
 	
-	if js.isdigit():
+	if isinstance(js, str) and js.isdigit():
 		return float(js) == float(py)
 	if {'true': 'True', 'false': 'False'}.get(js, js) == py:
 		return True
