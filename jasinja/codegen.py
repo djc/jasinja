@@ -192,6 +192,25 @@ class JSCodeGen(CodeGenerator):
 			self.visit(node.arg, frame)
 			self.write(']')
 	
+	def visit_For(self, node, frame):
+		
+		self.newline()
+		
+		self.write('for (var _i = 0; _i < ')
+		self.visit(node.iter, frame)
+		self.write('.length; _i++) {')
+		self.newline()
+		self.indent()
+		for n in node.body:
+			self.visit(node.target, frame)
+			self.write(' = ')
+			self.visit(node.iter, frame)
+			self.write('[_i];')
+			self.visit(n, frame)
+		
+		self.outdent()
+		self.writeline('}')
+	
 	def visit_Filter(self, node, frame):
 		self.write('filters.' + node.name + '(')
 		self.visit(node.node, frame)

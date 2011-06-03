@@ -27,6 +27,7 @@ TESTS = [
 	('{{ "%.2f%%"|format(a) }}', {'a': 5}),
 	(FS('basic-blocks'), {}),
 	('{{ a[x] }}', {'a': {'y': 1}, 'x': 'y'}),
+	('{% for x in ls %}{{ x }}{% endfor %}', {'ls': ['a', 'b']}),
 ]
 
 def loader(i):
