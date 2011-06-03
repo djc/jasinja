@@ -1,5 +1,8 @@
-import codegen, jinja2, spidermonkey, sys
+import codegen, jinja2, spidermonkey, sys, os
 import simplejson as json
+
+dir = os.path.dirname(__file__)
+FS = lambda x: jinja2.FileSystemLoader(os.path.join(dir, x))
 
 TESTS = [
 	('{{ test }}', {'test': 'crap'}),
@@ -24,7 +27,10 @@ TESTS = [
 ]
 
 def loader(i):
-	return jinja2.DictLoader({'index': TESTS[i][0]})
+	if isinstance(TESTS[i][0], str):
+		return jinja2.DictLoader({'index': TESTS[i][0]})
+	else:
+		return TESTS[i][0]
 
 def jstest(env, data):
 	run = spidermonkey.Runtime()
