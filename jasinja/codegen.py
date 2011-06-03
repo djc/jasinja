@@ -1,6 +1,9 @@
 from jinja2.compiler import CodeGenerator, Frame, EvalContext
 from jinja2.parser import Parser
 from jinja2 import nodes
+import os
+
+META = os.path.join(os.path.dirname(__file__), 'meta.js')
 
 class JSCodeGen(CodeGenerator):
 	
@@ -196,7 +199,7 @@ def generate(env, templates=None):
 		gen.visit(compile(env, src))
 		out.append(gen.stream.getvalue().rstrip())
 	
-	src = open('meta.js').read()
+	src = open(META).read()
 	return src.replace('[DATA]', ',\n    \n'.join(out))
 
 def pygen(env, name):

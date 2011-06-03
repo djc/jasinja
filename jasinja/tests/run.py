@@ -1,5 +1,6 @@
-import codegen, jinja2, spidermonkey, sys, os
+import jinja2, spidermonkey, sys, os
 import simplejson as json
+from jasinja import codegen
 
 dir = os.path.dirname(__file__)
 FS = lambda x: jinja2.FileSystemLoader(os.path.join(dir, x))
