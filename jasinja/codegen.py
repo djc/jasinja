@@ -148,7 +148,7 @@ class JSCodeGen(CodeGenerator):
 		
 	def visit_Name(self, node, frame):
 		if frame.parent is None:
-			self.write('ctx["%s"]' % node.name)
+			self.write('ctx.%s' % node.name)
 		else:
 			self.write(node.name)
 	
