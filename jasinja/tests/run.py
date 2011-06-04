@@ -29,6 +29,7 @@ TESTS = [
 	('{{ a[x] }}', {'a': {'y': 1}, 'x': 'y'}),
 	('{% for x in ls %}{{ x }}{% endfor %}', {'ls': ['a', 'b']}),
 	('{% set x = y %}{{ x }}', {'y': 1}),
+	('{% for x in y %}{{ loop.index % 2 }}{% endfor %}', {'y': ['a', 'b']}),
 ]
 
 def loader(i):
