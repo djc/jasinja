@@ -28,6 +28,7 @@ TESTS = [
 	(FS('basic-blocks'), {}),
 	('{{ a[x] }}', {'a': {'y': 1}, 'x': 'y'}),
 	('{% for x in ls %}{{ x }}{% endfor %}', {'ls': ['a', 'b']}),
+	('{% set x = y %}{{ x }}', {'y': 1}),
 ]
 
 def loader(i):

@@ -121,6 +121,13 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_Macro(self, node, frame):
 		pass
+
+	def visit_Assign(self, node, frame):
+		self.newline()
+		self.visit(node.target, frame)
+		self.write(' = ')
+		self.visit(node.node, frame)
+		self.write(';')
 	
 	def visit_Call(self, node, frame):
 		self.write('this.macros.' + node.node.name)
