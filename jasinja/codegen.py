@@ -243,6 +243,10 @@ class JSCodeGen(CodeGenerator):
 		self.visit(node.node, frame)
 		self.write(')')
 	
+	def visit_Not(self, node, frame):
+		self.write('!')
+		self.visit(node.node, frame)
+	
 	def visit_If(self, node, frame):
 		
 		self.newline()

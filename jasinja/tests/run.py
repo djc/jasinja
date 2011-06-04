@@ -30,6 +30,7 @@ TESTS = [
 	('{% for x in ls %}{{ x }}{% endfor %}', {'ls': ['a', 'b']}),
 	('{% set x = y %}{{ x }}', {'y': 1}),
 	('{% for x in y %}{{ loop.index % 2 }}{% endfor %}', {'y': ['a', 'b']}),
+	('{{ 1 if not x else 0 }}', {'x': False}),
 ]
 
 def loader(i):
