@@ -31,6 +31,7 @@ TESTS = [
 	('{% set x = y %}{{ x }}', {'y': 1}),
 	('{% for x in y %}{{ loop.index % 2 }}{% endfor %}', {'y': ['a', 'b']}),
 	('{{ 1 if not x else 0 }}', {'x': False}),
+	('{{ 1 if x is not defined else 0 }}', {}),
 ]
 
 def loader(i):

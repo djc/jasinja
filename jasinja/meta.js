@@ -31,6 +31,9 @@ var filters = {
 var tests = {
     "none": function(val) {
         return val === null;
+    },
+    "defined": function(val) {
+        return val !== undefined;
     }
 }
 
