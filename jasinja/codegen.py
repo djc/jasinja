@@ -213,11 +213,13 @@ class JSCodeGen(CodeGenerator):
 		self.write('.length; _i++) {')
 		self.newline()
 		self.indent()
+		
+		self.visit(node.target, frame)
+		self.write(' = ')
+		self.visit(node.iter, frame)
+		self.write('[_i];')
+		
 		for n in node.body:
-			self.visit(node.target, frame)
-			self.write(' = ')
-			self.visit(node.iter, frame)
-			self.write('[_i];')
 			self.visit(n, frame)
 		
 		self.outdent()
