@@ -181,7 +181,7 @@ class JSCodeGen(CodeGenerator):
 		if isinstance(node.arg, nodes.Slice):
 			
 			assert node.arg.step is None
-			self.write('filters._slice(')
+			self.write('utils.slice(')
 			self.visit(node.node, frame)
 			self.write(', ')
 			

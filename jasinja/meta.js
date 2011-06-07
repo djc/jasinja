@@ -1,12 +1,16 @@
-var filters = {
+var utils = {
 
-    "_slice": function(val, start, stop) {
+    "slice": function(val, start, stop) {
         if (typeof(val) == "string") {
             return val.substring(start, stop);
         } else if (val instanceof Array) {
             return val.slice(start, stop);
         }
     },
+
+};
+
+var filters = {
 
     "format": function(fmt, vals) {
         var regex = new RegExp('\%.*?[fis%]');
