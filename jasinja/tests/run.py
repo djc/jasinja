@@ -33,6 +33,7 @@ TESTS = [
 	('{{ 1 if not x else 0 }}', {'x': False}),
 	('{{ 1 if x is not defined else 0 }}', {}),
 	('\n\n{{- x }}\t\t', {'x': 1}),
+	('alpha {# beta #}', {}),
 ]
 
 def loader(i):
