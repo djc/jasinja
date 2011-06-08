@@ -36,6 +36,7 @@ TESTS = [
 	('alpha {# beta #}', {}),
 	('{% raw %}{{ my template }}{% endraw %}', {}),
 	('{{ x }}## flabby\n{{ x }}', {'x': 'a'}),
+	('{{ x.y.z }}', {'x': {'y': {'z': 1}}}),
 ]
 
 def loader(i):

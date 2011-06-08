@@ -168,7 +168,7 @@ class JSCodeGen(CodeGenerator):
 		self.write(')')
 	
 	def visit_Getattr(self, node, frame):
-		if node.node.name == 'loop':
+		if getattr(node.node, 'name', '') == 'loop':
 			assert node.attr.startswith('index')
 			x = '(_i + 1)' if node.attr == 'index' else '_i'
 			self.write(x)
