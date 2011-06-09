@@ -34,6 +34,14 @@ var utils = {
         } else {
             throw new TypeError("containment is undefined");
         }
+    },
+
+    "strjoin": function() {
+        var buf = [];
+        for (var i = 0; i < arguments.length; i++) {
+            buf.push(arguments[i].toString());
+        }
+        return buf.join("");
     }
 
 };

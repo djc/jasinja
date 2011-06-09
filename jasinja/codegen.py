@@ -253,6 +253,15 @@ class JSCodeGen(CodeGenerator):
 		self.write('!')
 		self.visit(node.node, frame)
 	
+	def visit_Concat(self, node, frame):
+		self.write('utils.strjoin(')
+		first = True
+		for n in node.nodes:
+			if not first: self.write(', ')
+			self.visit(n, frame)
+			first = False
+		self.write(')')
+	
 	def visit_If(self, node, frame):
 		
 		self.newline()
