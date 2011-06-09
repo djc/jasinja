@@ -38,6 +38,10 @@ TESTS = [
 	('{{ x }}## flabby\n{{ x }}', {'x': 'a'}),
 	('{{ x.y.z }}', {'x': {'y': {'z': 1}}}),
 	("{{ x.split('-', 1)[0] }}", {'x': '3-1'}),
+	(
+		'{% for i in x %}{% if loop.first %}{{ i }}{% endif %}{% endfor %}',
+		{'x': ['a', 'b', 'c']},
+	),
 ]
 
 def loader(i):

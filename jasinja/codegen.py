@@ -173,8 +173,7 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_Getattr(self, node, frame):
 		if getattr(node.node, 'name', '') == 'loop':
-			assert node.attr.startswith('index')
-			x = '(_i + 1)' if node.attr == 'index' else '_i'
+			x = 'utils.loop.%s(_i, _l)' % node.attr
 			self.write(x)
 		else:
 			self.visit(node.node, frame)
@@ -211,10 +210,12 @@ class JSCodeGen(CodeGenerator):
 	def visit_For(self, node, frame):
 		
 		self.newline()
-		
-		self.write('for (var _i = 0; _i < ')
+		self.write('var _l = ')
 		self.visit(node.iter, frame)
-		self.write('.length; _i++) {')
+		self.write('.length;')
+		
+		self.newline()
+		self.write('for (var _i = 0; _i < _l; _i++) {')
 		self.newline()
 		self.indent()
 		
