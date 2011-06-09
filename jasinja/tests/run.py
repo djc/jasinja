@@ -42,6 +42,7 @@ TESTS = [
 		'{% for i in x %}{% if loop.first %}{{ i }}{% endif %}{% endfor %}',
 		{'x': ['a', 'b', 'c']},
 	),
+	('{% for i in x %}{{ loop.cycle("o", "e") }}{% endfor %}', {'x': [1, 2]}),
 ]
 
 def loader(i):

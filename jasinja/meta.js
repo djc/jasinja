@@ -16,6 +16,9 @@ var utils = {
     	"first": function(i, l) { return !i; },
     	"last": function(i, l) { return i == l - 1; },
     	"length": function(i, l) { return l; },
+    	"cycle": function(i, l) {
+    		return function() { return arguments[i % arguments.length]; }
+    	}
     }
 
 };
