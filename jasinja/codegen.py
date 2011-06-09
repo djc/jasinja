@@ -274,6 +274,18 @@ class JSCodeGen(CodeGenerator):
 			self.visit(n, frame)
 		self.outdent()
 		self.writeline('}')
+	
+	def binop(op): # copied from CodeGenerator:binop()
+		def visitor(self, node, frame):
+			self.write('(')
+			self.visit(node.left, frame)
+			self.write(' %s ' % op)
+			self.visit(node.right, frame)
+			self.write(')')
+		return visitor
+	
+	visit_And = binop('&&')
+	visit_Or = binop('||')
 		
 def compile(env, src):
 	return Parser(env, src, 'test', 'test.html').parse()
