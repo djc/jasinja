@@ -19,6 +19,15 @@ var utils = {
     	"cycle": function(i, l) {
     		return function() { return arguments[i % arguments.length]; }
     	}
+    },
+
+    "contains": function(n, hs) {
+    	if (hs instanceof Array) {
+    		for (var i = 0; i < hs.length; i++) {
+    			if (hs[i] == n) return true;
+    		}
+    		return false;
+    	}
     }
 
 };

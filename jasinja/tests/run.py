@@ -45,6 +45,7 @@ TESTS = [
 	('{% for i in x %}{{ loop.cycle("o", "e") }}{% endfor %}', {'x': [1, 2]}),
 	('{{ x or y }}', {'x': 1, 'y': 0}),
 	('{{ x and y }}', {'x': 2, 'y': 1}),
+	('{{ x in y }}', {'y': [1, 2], 'x': 1}),
 ]
 
 def loader(i):

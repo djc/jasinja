@@ -275,6 +275,19 @@ class JSCodeGen(CodeGenerator):
 		self.outdent()
 		self.writeline('}')
 	
+	def visit_Compare(self, node, frame):
+		
+		if node.ops[0].op != 'in':
+			CodeGenerator.visit_Compare(self, node, frame)
+			return
+		
+		oper = node.ops[0]
+		self.write('utils.contains(')
+		self.visit(node.expr, frame)
+		self.write(', ')
+		self.visit(oper.expr, frame)
+		self.write(')')
+	
 	def binop(op): # copied from CodeGenerator:binop()
 		def visitor(self, node, frame):
 			self.write('(')
