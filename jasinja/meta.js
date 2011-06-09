@@ -9,31 +9,31 @@ var utils = {
     },
 
     "loop": {
-    	"index": function(i, l) { return i + 1; },
-    	"index0": function(i, l) { return i; },
-    	"revindex": function(i, l) { return l - i; },
-    	"revindex0": function(i, l) { return l - i - 1; },
-    	"first": function(i, l) { return !i; },
-    	"last": function(i, l) { return i == l - 1; },
-    	"length": function(i, l) { return l; },
-    	"cycle": function(i, l) {
-    		return function() { return arguments[i % arguments.length]; }
-    	}
+        "index": function(i, l) { return i + 1; },
+        "index0": function(i, l) { return i; },
+        "revindex": function(i, l) { return l - i; },
+        "revindex0": function(i, l) { return l - i - 1; },
+        "first": function(i, l) { return !i; },
+        "last": function(i, l) { return i == l - 1; },
+        "length": function(i, l) { return l; },
+        "cycle": function(i, l) {
+            return function() { return arguments[i % arguments.length]; }
+        }
     },
 
     "contains": function(n, hs) {
-    	if (hs instanceof Array) {
-    		for (var i = 0; i < hs.length; i++) {
-    			if (hs[i] == n) return true;
-    		}
-    		return false;
-    	} else if (typeof(hs) == "string") {
-    		return !!hs.match(RegExp(n));
-    	} else if (typeof(hs) == "object") {
-    		return hs[n] !== undefined;
-    	} else {
-    		throw new TypeError("containment is undefined");
-    	}
+        if (hs instanceof Array) {
+            for (var i = 0; i < hs.length; i++) {
+                if (hs[i] == n) return true;
+            }
+            return false;
+        } else if (typeof(hs) == "string") {
+            return !!hs.match(RegExp(n));
+        } else if (typeof(hs) == "object") {
+            return hs[n] !== undefined;
+        } else {
+            throw new TypeError("containment is undefined");
+        }
     }
 
 };
