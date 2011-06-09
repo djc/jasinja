@@ -29,6 +29,10 @@ var utils = {
     		return false;
     	} else if (typeof(hs) == "string") {
     		return !!hs.match(RegExp(n));
+    	} else if (typeof(hs) == "object") {
+    		return hs[n] !== undefined;
+    	} else {
+    		throw new TypeError("containment is undefined");
     	}
     }
 
