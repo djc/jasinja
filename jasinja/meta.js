@@ -27,6 +27,8 @@ var utils = {
     			if (hs[i] == n) return true;
     		}
     		return false;
+    	} else if (typeof(hs) == "string") {
+    		return !!hs.match(RegExp(n));
     	}
     }
 
