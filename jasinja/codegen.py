@@ -130,7 +130,11 @@ class JSCodeGen(CodeGenerator):
 		self.write(';')
 	
 	def visit_Call(self, node, frame):
-		self.write('this.macros.' + node.node.name)
+		
+		if isinstance(node.node, nodes.Name):
+			self.write('this.macros.')
+		
+		self.visit(node.node, frame)
 		self.write('(')
 		first = True
 		for n in node.args:
