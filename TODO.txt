@@ -1,0 +1,69 @@
+General
+-------
+
+ - Enable different kinds of inheritance
+ - Call blocks
+ - Filter sections
+ - Assignments
+ - Include statements
+ - Import statements
+ - Tuple expressions
+
+Built-in filters
+----------------
+
+ - Priority: sort, join, reverse, int, capitalize, float, length (count), abs,
+   title, e, dictsort, round, string (used at work)
+ - Extend formatting syntax for format filter
+ - attr
+ - batch
+ - center
+ - default (d)
+ - filesizeformat
+ - first
+ - forceescape
+ - groupby
+ - indent
+ - last
+ - list
+ - lower
+ - pprint
+ - random
+ - replace
+ - safe
+ - slice
+ - striptags
+ - sum
+ - trim
+ - truncate
+ - upper
+ - urlize
+ - wordcount
+ - wordwrap
+ - xmlattr
+
+Built-in tests
+--------------
+
+ - callable
+ - divisibleby
+ - escaped
+ - even
+ - iterable
+ - lower
+ - number
+ - odd
+ - sameas
+ - sequence
+ - string
+ - undefined
+ - upper
+
+Global functions
+----------------
+
+ - range(start, stop, step)
+ - lipsum(n, html, min, max)
+ - dict(**items)
+ - cycler(*items)
+ - joiner(*items)
