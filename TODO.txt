@@ -4,7 +4,6 @@ General
  - Enable different kinds of inheritance
  - Call blocks
  - Filter sections
- - Assignments
  - Include statements
  - Import statements
  - Tuple expressions
