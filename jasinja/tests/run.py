@@ -52,6 +52,7 @@ TESTS = [
 	(FS('no-override'), {}),
 	('''{{ '&<>"'|e }}{{ "'"|e }}''', {}),
 	('{% filter e %}&<>{% endfilter %}', {}),
+	('{{ ("a", "b")[1] }}', {}),
 ]
 
 def loader(i):

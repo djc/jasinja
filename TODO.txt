@@ -4,7 +4,6 @@ General
  - Call blocks
  - Include statements
  - Import statements
- - Tuple expressions
  - Support for self and super
 
 Built-in filters

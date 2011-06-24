@@ -116,6 +116,9 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('}')
 		self.writeline('')
 	
+	def visit_Tuple(self, node, frame):
+		self.visit_List(node, frame)
+	
 	def visit_Block(self, node, frame):
 		bits = frame.buffer, node.name
 		self.writeline('%s.push(tmpl.blocks["%s"](ctx));' % bits)
