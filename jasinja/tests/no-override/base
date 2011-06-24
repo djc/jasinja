@@ -1,0 +1,1 @@
+alpha {% block x %}gamma{% endblock %} beta {% block y %}delta{% endblock %}
