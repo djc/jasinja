@@ -45,6 +45,13 @@ class JSCodeGen(CodeGenerator):
 		self.newline()
 		self.write('}')
 	
+	def visit_Include(self, node, frame):
+		self.newline()
+		self.write('%s.push(templates[' % frame.buffer)
+		self.visit(node.template, frame)
+		self.write('].render(ctx));')
+		self.newline()
+	
 	def visit_Template(self, node, frame=None):
 		
 		frame = Frame(EvalContext(self.environment, self.name))

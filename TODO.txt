@@ -2,7 +2,6 @@ General
 -------
 
  - Call blocks
- - Include statements
  - Import statements
  - Support for self and super
 
