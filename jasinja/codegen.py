@@ -100,11 +100,14 @@ class JSCodeGen(CodeGenerator):
 			self.visit(extends.template, frame)
 			self.write('].render(ctx, this);')
 		else:
-			self.writeline('tmpl = tmpl === undefined ? this : tmpl;')
+			self.writeline('')
+			self.writeline('tmpl = utils.extend(this, tmpl);')
+			self.writeline('')
 			self.writeline('var _buf = [];')
 			for n in node.body:
 				self.visit(n, frame)
 			self.writeline('return _buf.join("");')
+			self.writeline('')
 		
 		self.outdent()
 		self.writeline('}')

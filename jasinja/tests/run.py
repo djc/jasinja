@@ -49,6 +49,7 @@ TESTS = [
 	('{{ x in y }}', {'y': 'alpha', 'x': 'ph'}),
 	('{{ "x" in y }}', {'y': {'x': 1}}),
 	('{{ "hi" ~ x ~ "there!" }}', {'x': 1}),
+	(FS('no-override'), {}),
 ]
 
 def loader(i):

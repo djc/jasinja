@@ -1,5 +1,18 @@
 var utils = {
 
+    "extend": function(base, child) {
+        if (child == undefined) return base;
+        var current = {"blocks": {}};
+        for (var key in base.blocks) {
+            if (!child.blocks[key]) {
+                current.blocks[key] = base.blocks[key];
+            } else {
+                current.blocks[key] = child.blocks[key];
+            }
+        }
+        return current;
+    },
+
     "slice": function(val, start, stop) {
         if (typeof(val) == "string") {
             return val.substring(start, stop);
