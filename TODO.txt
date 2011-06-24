@@ -2,7 +2,6 @@ General
 -------
 
  - Call blocks
- - Filter sections
  - Include statements
  - Import statements
  - Tuple expressions

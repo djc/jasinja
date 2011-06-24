@@ -125,7 +125,20 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_Macro(self, node, frame):
 		pass
-
+	
+	def visit_FilterBlock(self, node, frame):
+		
+		local = Frame(EvalContext(self.environment, self.name))
+		local.buffer = '_fbuf'
+		local.toplevel = frame.toplevel
+		
+		self.writeline('var %s = [];' % local.buffer)
+		for n in node.body:
+			self.visit(n, local)
+		
+		bits = frame.buffer, node.filter.name, local.buffer
+		self.writeline('%s.push(filters.%s(%s.join("")));' % bits)
+	
 	def visit_Assign(self, node, frame):
 		self.newline()
 		self.visit(node.target, frame)
