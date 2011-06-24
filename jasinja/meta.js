@@ -60,6 +60,19 @@ var utils = {
 };
 
 var filters = {
+    
+    "e": function(s) {
+        return this.escape(s);
+    },
+    
+    "escape": function(s) {
+        s = s.replace('&', '&amp;');
+        s = s.replace('<', '&lt;');
+        s = s.replace('>', '&gt;');
+        s = s.replace('"', '&#34;');
+        s = s.replace("'", '&#39;');
+        return s;
+    },
 
     "format": function(fmt, vals) {
         var regex = new RegExp('\%.*?[fis%]');

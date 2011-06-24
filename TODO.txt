@@ -1,18 +1,18 @@
 General
 -------
 
- - Enable different kinds of inheritance
  - Call blocks
  - Filter sections
  - Include statements
  - Import statements
  - Tuple expressions
+ - Support for self and super
 
 Built-in filters
 ----------------
 
  - Priority: sort, join, reverse, int, capitalize, float, length (count), abs,
-   title, e, dictsort, round, string (used at work)
+   title, dictsort, round, string (used at work)
  - Extend formatting syntax for format filter
  - attr
  - batch
