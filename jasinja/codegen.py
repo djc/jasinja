@@ -18,13 +18,13 @@ class JSCodeGen(CodeGenerator):
 			first = False
 		self.write(') {')
 		self.indent()
-		self.writeline('var _buf = [];')
+		self.writeline('var %s = [];' % frame.buffer)
 		
 		frame = Frame(frame.eval_ctx, frame)
 		for n in node.body:
 			self.visit(n, frame)
 		
-		self.writeline('return _buf.join("");')
+		self.writeline('return %s.join("");' % frame.buffer)
 		self.outdent()
 		self.newline()
 		self.write('}')
@@ -34,13 +34,13 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('')
 		self.write('"%s": function(ctx) {' % node.name)
 		self.indent()
-		self.writeline('var _buf = [];')
+		self.writeline('var %s = [];' % frame.buffer)
 		
 		frame = Frame(frame.eval_ctx, frame)
 		for n in node.body:
 			self.visit(n, frame)
 		
-		self.writeline('return _buf.join("");')
+		self.writeline('return %s.join("");' % frame.buffer)
 		self.outdent()
 		self.newline()
 		self.write('}')
@@ -103,10 +103,10 @@ class JSCodeGen(CodeGenerator):
 			self.writeline('')
 			self.writeline('tmpl = utils.extend(this, tmpl);')
 			self.writeline('')
-			self.writeline('var _buf = [];')
+			self.writeline('var %s = [];' % frame.buffer)
 			for n in node.body:
 				self.visit(n, frame)
-			self.writeline('return _buf.join("");')
+			self.writeline('return %s.join("");' % frame.buffer)
 			self.writeline('')
 		
 		self.outdent()
@@ -117,7 +117,8 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('')
 	
 	def visit_Block(self, node, frame):
-		self.writeline('_buf.push(tmpl.blocks["%s"](ctx));' % node.name)
+		bits = frame.buffer, node.name
+		self.writeline('%s.push(tmpl.blocks["%s"](ctx));' % bits)
 	
 	def visit_Extends(self, node, frame):
 		pass
@@ -150,7 +151,7 @@ class JSCodeGen(CodeGenerator):
 	def visit_Output(self, node, frame):
 		for n in node.nodes:
 			self.newline()
-			self.write('_buf.push(')
+			self.write('%s.push(' % frame.buffer)
 			self.visit(n, frame)
 			self.write(');')
 		
