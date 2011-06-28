@@ -54,6 +54,7 @@ TESTS = [
 	('{% filter e %}&<>{% endfilter %}', {}),
 	('{{ ("a", "b")[1] }}', {}),
 	(FS('include'), {}),
+	("{{ 1 if 'a' not in ['a', 'b'] else 2 }}", {}),
 ]
 
 def loader(i):

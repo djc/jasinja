@@ -314,11 +314,13 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_Compare(self, node, frame):
 		
-		if node.ops[0].op != 'in':
+		if node.ops[0].op not in ('in', 'notin'):
 			CodeGenerator.visit_Compare(self, node, frame)
 			return
 		
 		oper = node.ops[0]
+		if oper.op == 'notin':
+			self.write('!')
 		self.write('utils.contains(')
 		self.visit(node.expr, frame)
 		self.write(', ')
