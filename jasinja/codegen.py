@@ -200,13 +200,9 @@ class JSCodeGen(CodeGenerator):
 		self.write(')')
 	
 	def visit_Getattr(self, node, frame):
-		if getattr(node.node, 'name', '') == 'loop':
-			x = 'utils.loop.%s(_i, _l)' % node.attr
-			self.write(x)
-		else:
-			self.visit(node.node, frame)
-			self.write('.')
-			self.write(node.attr)
+		self.visit(node.node, frame)
+		self.write('.')
+		self.write(node.attr)
 	
 	def visit_Getitem(self, node, frame):
 		if isinstance(node.arg, nodes.Slice):
@@ -241,11 +237,15 @@ class JSCodeGen(CodeGenerator):
 		self.write('var _l = ')
 		self.visit(node.iter, frame)
 		self.write('.length;')
+		self.newline()
+		self.writeline('ctx.loop = utils.loop(_l);')
 		
 		self.newline()
 		self.write('for (var _i = 0; _i < _l; _i++) {')
 		self.newline()
 		self.indent()
+		self.writeline('ctx.loop.update(_i);')
+		self.newline()
 		
 		self.visit(node.target, frame)
 		self.write(' = ')

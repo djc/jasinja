@@ -21,17 +21,22 @@ var utils = {
         }
     },
 
-    "loop": {
-        "index": function(i, l) { return i + 1; },
-        "index0": function(i, l) { return i; },
-        "revindex": function(i, l) { return l - i; },
-        "revindex0": function(i, l) { return l - i - 1; },
-        "first": function(i, l) { return !i; },
-        "last": function(i, l) { return i == l - 1; },
-        "length": function(i, l) { return l; },
-        "cycle": function(i, l) {
-            return function() { return arguments[i % arguments.length]; }
-        }
+    "loop": function(l) {
+        function LoopObject() {
+            this.len = l;
+            this.update = function(i) {
+            	this.index = i + 1;
+            	this.index0 = i;
+            	this.revindex = this.len - i;
+            	this.revindex0 = this.len - i - 1;
+            	this.first = !i;
+            	this.last = i == this.len - 1;
+            }
+            this.cycle = function() {
+            	return arguments[this.index0 % arguments.length];
+            };
+    	}
+    	return new LoopObject();
     },
 
     "contains": function(n, hs) {
