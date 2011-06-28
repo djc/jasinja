@@ -95,6 +95,12 @@ var filters = {
 	        }
         }
         return fmt;
+    },
+    
+    "reverse": function(r) {
+    	var c = r.slice(0);
+    	c.reverse();
+    	return c;
     }
 
 };
