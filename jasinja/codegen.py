@@ -259,16 +259,20 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('}')
 	
 	def visit_Filter(self, node, frame):
+		
 		self.write('filters.' + node.name + '(')
 		self.visit(node.node, frame)
-		self.write(', [')
 		
+		if not node.args:
+			self.write(')')
+			return
+		
+		self.write(', [')
 		first = True
 		for n in node.args:
 			if not first: self.write(', ')
 			self.visit(n, frame)
 			first = False
-		
 		self.write('])')
 	
 	def visit_Test(self, node, frame):
