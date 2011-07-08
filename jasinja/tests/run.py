@@ -7,6 +7,9 @@ dir = os.path.dirname(__file__)
 def testdir(x):
 	return jinja2.FileSystemLoader(os.path.join(dir, x))
 
+def testfile(x):
+	return open(os.path.join(dir, x)).read()
+
 TESTS = [
 	('{{ test }}', {'test': 'crap'}),
 	('{% if a %}x{% endif %}', {'a': True}),
