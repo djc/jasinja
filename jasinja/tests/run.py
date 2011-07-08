@@ -91,6 +91,7 @@ def run(i, quiet=True):
 	if not quiet:
 		print ast
 		print codegen.generate(env)
+		#print codegen.pygen(env, 'index')
 	
 	js = jstest(env, data)
 	py = pytest(env, data)
