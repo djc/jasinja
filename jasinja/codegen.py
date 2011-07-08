@@ -10,17 +10,21 @@ class JSCodeGen(CodeGenerator):
 	def jsmacro(self, node, frame):
 		
 		self.writeline('')
-		self.write('"%s": function(' % node.name)
-		first = True
+		self.write('"%s": function(ctx, ' % node.name)
+		
+		first, args = True, set()
 		for n in node.args:
 			if not first: self.write(', ')
 			self.write(n.name)
+			args.add(n.name)
 			first = False
+		
 		self.write(') {')
 		self.indent()
 		self.writeline('var %s = [];' % frame.buffer)
 		
 		frame = Frame(frame.eval_ctx, frame)
+		frame.identifiers.declared = args
 		for n in node.body:
 			self.visit(n, frame)
 		
@@ -160,10 +164,11 @@ class JSCodeGen(CodeGenerator):
 		
 		if isinstance(node.node, nodes.Name):
 			self.write('this.macros.' + node.node.name)
+			self.write('(ctx, ')
 		else:
 			self.visit(node.node, frame)
+			self.write('(')
 		
-		self.write('(')
 		first = True
 		for n in node.args:
 			if not first: self.write(', ')
@@ -179,10 +184,10 @@ class JSCodeGen(CodeGenerator):
 			self.write(');')
 		
 	def visit_Name(self, node, frame):
-		if frame.parent is None:
-			self.write('ctx.%s' % node.name)
-		else:
+		if node.name in frame.identifiers.declared:
 			self.write(node.name)
+		else:
+			self.write('ctx.%s' % node.name)
 	
 	def visit_TemplateData(self, node, frame):
 		val = node.as_const(frame.eval_ctx)
@@ -238,13 +243,14 @@ class JSCodeGen(CodeGenerator):
 		self.visit(node.iter, frame)
 		self.write('.length;')
 		self.newline()
-		self.writeline('ctx.loop = utils.loop(_l);')
+		self.writeline('loop = utils.loop(_l);')
+		frame.identifiers.declared.add('loop')
 		
 		self.newline()
 		self.write('for (var _i = 0; _i < _l; _i++) {')
 		self.newline()
 		self.indent()
-		self.writeline('ctx.loop.update(_i);')
+		self.writeline('loop.update(_i);')
 		self.newline()
 		
 		self.visit(node.target, frame)
@@ -257,6 +263,7 @@ class JSCodeGen(CodeGenerator):
 		
 		self.outdent()
 		self.writeline('}')
+		frame.identifiers.declared.remove('loop')
 	
 	def visit_Filter(self, node, frame):
 		

@@ -62,6 +62,7 @@ TESTS = [
 	("{{ 1 if 'a' not in ['a', 'b'] else 2 }}", {}),
 	('{% for x in a|reverse %}{{ x }}{% endfor %}', {'a': ['alpha', 'beta']}),
 	('{{ a }} {{ a|abs }}', {'a': -1}),
+	(testfile('scoping.html'), {'a': 'alpha', 'b': ['beta']}),
 ]
 
 def loader(i):

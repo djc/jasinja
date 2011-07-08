@@ -1,0 +1,7 @@
+{% macro m(loop, x) -%}
+	{{ loop.index }} {{ x }} {{ a }}
+{%- endmacro -%}
+
+{% for x in b -%}
+	{{ m(loop, x) }}
+{%- endfor %}
