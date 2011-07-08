@@ -64,6 +64,7 @@ TESTS = [
 	('{{ a }} {{ a|abs }}', {'a': -1}),
 	(testfile('scoping.html'), {'a': 'alpha', 'b': ['beta']}),
 	('{{ "%s: %s"|format(a, b) }}', {'a': 1, 'b': 'alpha'}),
+	(testfile('nested-for.html'), {}),
 ]
 
 def loader(i):

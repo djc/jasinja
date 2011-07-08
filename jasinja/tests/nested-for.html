@@ -1,0 +1,6 @@
+{% for x in ['a', 'b', 'c'] -%}
+	{% for y in ['alpha', 'beta', 'gamma'] -%}
+		{{ loop.revindex }}{{ y }}
+	{%- endfor -%}
+	{{ loop.index }}
+{% endfor %}

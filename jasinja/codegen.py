@@ -5,6 +5,12 @@ import os
 
 META = os.path.join(os.path.dirname(__file__), 'meta.js')
 
+def nextvar(frame, prefix):
+	idx, n = 0, prefix + '0'
+	while n in frame.identifiers.declared:
+		idx, n = idx + 1, prefix + str(idx + 1)
+	return n
+
 class JSCodeGen(CodeGenerator):
 	
 	def jsmacro(self, node, frame):
@@ -238,32 +244,51 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_For(self, node, frame):
 		
+		looplen = nextvar(frame, '_looplen')
+		frame.identifiers.declared.add(looplen)
+		loopvar = nextvar(frame, '_loopvar')
+		frame.identifiers.declared.add(loopvar)
+		loopit = nextvar(frame, '_loopit')
+		frame.identifiers.declared.add(loopit)
+		
+		declared = False
+		if 'loop' not in frame.identifiers.declared:
+			frame.identifiers.declared.add('loop')
+			declared = True
+		
 		self.newline()
-		self.write('var _l = ')
+		self.write('var %s = ' % looplen)
 		self.visit(node.iter, frame)
 		self.write('.length;')
 		self.newline()
-		self.writeline('loop = utils.loop(_l);')
-		frame.identifiers.declared.add('loop')
+		self.writeline('var %s = utils.loop(%s);' % (loopvar, looplen))
 		
 		self.newline()
-		self.write('for (var _i = 0; _i < _l; _i++) {')
+		vars = loopit, loopit, looplen, loopit
+		self.write('for (var %s = 0; %s < %s; %s++) {' % vars)
 		self.newline()
 		self.indent()
-		self.writeline('loop.update(_i);')
+		self.writeline('loop = %s;' % loopvar);
+		self.writeline('loop.update(%s);' % loopit)
 		self.newline()
 		
 		self.visit(node.target, frame)
 		self.write(' = ')
 		self.visit(node.iter, frame)
-		self.write('[_i];')
+		self.write('[%s];' % loopit)
 		
 		for n in node.body:
 			self.visit(n, frame)
 		
 		self.outdent()
 		self.writeline('}')
-		frame.identifiers.declared.remove('loop')
+		if loopvar[8:] != '0':
+			self.writeline('loop = _loopvar%s;' % (int(loopvar[8:]) - 1))
+		
+		frame.identifiers.declared.remove(loopvar)
+		frame.identifiers.declared.remove(looplen)
+		frame.identifiers.declared.remove(loopit)
+		if declared: frame.identifiers.declared.remove('loop')
 	
 	def visit_Filter(self, node, frame):
 		
