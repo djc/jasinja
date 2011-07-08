@@ -3,7 +3,9 @@ import simplejson as json
 from jasinja import codegen
 
 dir = os.path.dirname(__file__)
-FS = lambda x: jinja2.FileSystemLoader(os.path.join(dir, x))
+
+def testdir(x):
+	return jinja2.FileSystemLoader(os.path.join(dir, x))
 
 TESTS = [
 	('{{ test }}', {'test': 'crap'}),
@@ -25,7 +27,7 @@ TESTS = [
 	),
 	('{{ x is none }}', {'x': None}),
 	('{{ "%.2f%%"|format(a) }}', {'a': 5}),
-	(FS('basic-blocks'), {}),
+	(testdir('basic-blocks'), {}),
 	('{{ a[x] }}', {'a': {'y': 1}, 'x': 'y'}),
 	('{% for x in ls %}{{ x }}{% endfor %}', {'ls': ['a', 'b']}),
 	('{% set x = y %}{{ x }}', {'y': 1}),
@@ -49,11 +51,11 @@ TESTS = [
 	('{{ x in y }}', {'y': 'alpha', 'x': 'ph'}),
 	('{{ "x" in y }}', {'y': {'x': 1}}),
 	('{{ "hi" ~ x ~ "there!" }}', {'x': 1}),
-	(FS('no-override'), {}),
+	(testdir('no-override'), {}),
 	('''{{ '&<>"'|e }}{{ "'"|e }}''', {}),
 	('{% filter e %}&<>{% endfilter %}', {}),
 	('{{ ("a", "b")[1] }}', {}),
-	(FS('include'), {}),
+	(testdir('include'), {}),
 	("{{ 1 if 'a' not in ['a', 'b'] else 2 }}", {}),
 	('{% for x in a|reverse %}{{ x }}{% endfor %}', {'a': ['alpha', 'beta']}),
 	('{{ a }} {{ a|abs }}', {'a': -1}),
