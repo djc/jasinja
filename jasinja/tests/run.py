@@ -83,13 +83,13 @@ def pytest(env, data):
 	tmpl = env.get_template('index')
 	return tmpl.render(data)
 
-def run(i, quiet=True):
+def run(i, verbose=False):
 	
 	src, data = TESTS[i]
 	env = jinja2.Environment(loader=loader(i))
 	ast = codegen.compile(env, src)
 	
-	if not quiet:
+	if verbose:
 		print ast
 		print codegen.generate(env)
 		#print codegen.pygen(env, 'index')
@@ -97,7 +97,7 @@ def run(i, quiet=True):
 	js = jstest(env, data)
 	py = pytest(env, data)
 	
-	if not quiet:
+	if verbose:
 		print 'js:', repr(js)
 		print 'py:', repr(py)
 	
@@ -107,7 +107,7 @@ def run(i, quiet=True):
 	if {'true': 'True', 'false': 'False'}.get(js, js) == py:
 		res = True
 	
-	if not quiet:
+	if verbose:
 		print 'EQ:', res
 	
 	return res
@@ -119,7 +119,7 @@ def test():
 		sys.stdout.write('.' if res else 'F')
 		if not res:
 			print
-			run(i, False)
+			run(i, True)
 			break
 	
 	sys.stdout.write('\n')
@@ -127,6 +127,6 @@ def test():
 if __name__ == '__main__':
 	args = sys.argv[1:]
 	if args:
-		run(int(args[0]), False)
+		run(int(args[0]), True)
 	else:
 		test()
