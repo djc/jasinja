@@ -112,9 +112,15 @@ def run(i, quiet=True):
 	return res
 
 def test():
+	
 	for i, t in enumerate(TESTS):
 		res = run(i)
 		sys.stdout.write('.' if res else 'F')
+		if not res:
+			print
+			run(i, False)
+			break
+	
 	sys.stdout.write('\n')
 
 if __name__ == '__main__':
