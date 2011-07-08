@@ -56,6 +56,7 @@ TESTS = [
 	(FS('include'), {}),
 	("{{ 1 if 'a' not in ['a', 'b'] else 2 }}", {}),
 	('{% for x in a|reverse %}{{ x }}{% endfor %}', {'a': ['alpha', 'beta']}),
+	('{{ a }} {{ a|abs }}', {'a': -1}),
 ]
 
 def loader(i):

@@ -66,6 +66,10 @@ var utils = {
 
 var filters = {
     
+    "abs": function(n) {
+        return Math.abs(n);
+    },
+    
     "e": function(s) {
         return this.escape(s);
     },
