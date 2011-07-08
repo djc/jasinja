@@ -94,6 +94,8 @@ var filters = {
 	        	var mods = m.substring(1, m.length - 1).split('.');
 	        	if (mods[1]) val = val.toFixed(parseInt(mods[1], 10));
 	        	fmt = fmt.replace(m, val);
+	        } else if (type == "s") {
+	        	fmt = fmt.replace(m, val.toString());
 	        } else if (type == "%") {
 	        	fmt = fmt.replace("%%", "%");
 	        }

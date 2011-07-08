@@ -63,6 +63,7 @@ TESTS = [
 	('{% for x in a|reverse %}{{ x }}{% endfor %}', {'a': ['alpha', 'beta']}),
 	('{{ a }} {{ a|abs }}', {'a': -1}),
 	(testfile('scoping.html'), {'a': 'alpha', 'b': ['beta']}),
+	('{{ "%s: %s"|format(a, b) }}', {'a': 1, 'b': 'alpha'}),
 ]
 
 def loader(i):
