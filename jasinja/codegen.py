@@ -252,7 +252,7 @@ class JSCodeGen(CodeGenerator):
 		self.newline()
 		self.write('var %s = utils.loop(' % loopvar)
 		self.visit(node.iter, frame)
-		self.write('.length);')
+		self.write(');')
 		
 		self.newline()
 		vars = (loopvar,) * 4
@@ -266,9 +266,7 @@ class JSCodeGen(CodeGenerator):
 		frame.identifiers.declared.add(node.target.name)
 		self.write('var ')
 		self.visit(node.target, frame)
-		self.write(' = ')
-		self.visit(node.iter, frame)
-		self.write('[%s.i];' % loopvar)
+		self.write(' = %s.iter[%s.i];' % (loopvar, loopvar))
 		
 		for n in node.body:
 			self.visit(n, frame)

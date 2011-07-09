@@ -21,9 +21,10 @@ var utils = {
         }
     },
 
-    "loop": function(l) {
+    "loop": function(iter) {
         function LoopObject() {
-            this.l = l;
+            this.iter = iter;
+            this.l = iter.length;
             this.i = 0;
             this.update = function() {
             	this.index = this.i + 1;
