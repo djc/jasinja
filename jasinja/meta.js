@@ -23,14 +23,15 @@ var utils = {
 
     "loop": function(l) {
         function LoopObject() {
-            this.len = l;
-            this.update = function(i) {
-            	this.index = i + 1;
-            	this.index0 = i;
-            	this.revindex = this.len - i;
-            	this.revindex0 = this.len - i - 1;
-            	this.first = !i;
-            	this.last = i == this.len - 1;
+            this.l = l;
+            this.i = 0;
+            this.update = function() {
+            	this.index = this.i + 1;
+            	this.index0 = this.i;
+            	this.revindex = this.l - this.i;
+            	this.revindex0 = this.l - this.i - 1;
+            	this.first = !this.i;
+            	this.last = this.i == this.l - 1;
             }
             this.cycle = function() {
             	return arguments[this.index0 % arguments.length];

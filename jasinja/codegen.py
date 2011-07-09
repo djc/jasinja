@@ -244,12 +244,8 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_For(self, node, frame):
 		
-		looplen = nextvar(frame, '_looplen')
-		frame.identifiers.declared.add(looplen)
 		loopvar = nextvar(frame, '_loopvar')
 		frame.identifiers.declared.add(loopvar)
-		loopit = nextvar(frame, '_loopit')
-		frame.identifiers.declared.add(loopit)
 		
 		declared = False
 		if 'loop' not in frame.identifiers.declared:
@@ -257,25 +253,23 @@ class JSCodeGen(CodeGenerator):
 			declared = True
 		
 		self.newline()
-		self.write('var %s = ' % looplen)
+		self.write('var %s = utils.loop(' % loopvar)
 		self.visit(node.iter, frame)
-		self.write('.length;')
-		self.newline()
-		self.writeline('var %s = utils.loop(%s);' % (loopvar, looplen))
+		self.write('.length);')
 		
 		self.newline()
-		vars = loopit, loopit, looplen, loopit
-		self.write('for (var %s = 0; %s < %s; %s++) {' % vars)
+		vars = (loopvar,) * 4
+		self.write('for (%s.i = 0; %s.i < %s.l; %s.i++) {' % vars)
 		self.newline()
 		self.indent()
 		self.writeline('loop = %s;' % loopvar);
-		self.writeline('loop.update(%s);' % loopit)
+		self.writeline('loop.update();')
 		self.newline()
 		
 		self.visit(node.target, frame)
 		self.write(' = ')
 		self.visit(node.iter, frame)
-		self.write('[%s];' % loopit)
+		self.write('[%s.i];' % loopvar)
 		
 		for n in node.body:
 			self.visit(n, frame)
@@ -286,8 +280,6 @@ class JSCodeGen(CodeGenerator):
 			self.writeline('loop = _loopvar%s;' % (int(loopvar[8:]) - 1))
 		
 		frame.identifiers.declared.remove(loopvar)
-		frame.identifiers.declared.remove(looplen)
-		frame.identifiers.declared.remove(loopit)
 		if declared: frame.identifiers.declared.remove('loop')
 	
 	def visit_Filter(self, node, frame):
