@@ -8,7 +8,7 @@ General
 Built-in filters
 ----------------
 
- - Priority: sort, join, reverse, int, capitalize, float, length (count),
+ - Priority: sort, reverse, int, capitalize, float, length (count),
    title, dictsort, round, string (used at work)
  - Extend formatting syntax for format filter
  - attr

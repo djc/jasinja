@@ -105,6 +105,10 @@ var filters = {
         return fmt;
     },
     
+    "join": function(val, d) {
+        return val.join(d);
+    },
+    
     "reverse": function(r) {
     	var c = r.slice(0);
     	c.reverse();
