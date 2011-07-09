@@ -79,7 +79,10 @@ def jstest(env, data):
 	js = codegen.generate(env)
 	jsobj = json.dumps(data)
 	code = js + '\ntemplates.index.render(%s);' % jsobj
-	return str(ctx.execute(code))
+	try:
+		return str(ctx.execute(code))
+	except spidermonkey.JSError, e:
+		return e
 
 def pytest(env, data):
 	tmpl = env.get_template('index')
