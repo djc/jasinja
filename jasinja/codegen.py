@@ -263,6 +263,8 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('loop.update();')
 		self.newline()
 		
+		frame.identifiers.declared.add(node.target.name)
+		self.write('var ')
 		self.visit(node.target, frame)
 		self.write(' = ')
 		self.visit(node.iter, frame)
