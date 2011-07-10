@@ -109,6 +109,12 @@ var filters = {
         return val.join(d);
     },
     
+    "sort": function(val) {
+        var c = val.slice(0);
+        c.sort();
+        return c;
+    },
+    
     "reverse": function(r) {
     	var c = r.slice(0);
     	c.reverse();
