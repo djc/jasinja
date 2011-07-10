@@ -80,6 +80,14 @@ var filters = {
         return filters.length(val);
     },
     
+    "d": function(val, alt) {
+        return filters.default(val, alt);
+    },
+    
+    "default": function(val, alt) {
+        return val ? val : alt;
+    },
+    
     "e": function(s) {
         return this.escape(s);
     },
