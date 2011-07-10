@@ -8,20 +8,17 @@ General
 Built-in filters
 ----------------
 
- - Priority: sort, reverse, int, capitalize, float, length (count),
-   title, dictsort, round, string (used at work)
+ - Priority: title, dictsort, round, string (used at work)
  - Extend formatting syntax for format filter
  - attr
  - batch
  - center
- - default (d)
  - filesizeformat
  - first
  - forceescape
  - groupby
  - indent
  - last
- - list
  - lower
  - pprint
  - random
