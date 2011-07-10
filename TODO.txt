@@ -8,7 +8,7 @@ General
 Built-in filters
 ----------------
 
- - Priority: title, dictsort, round, string (used at work)
+ - Priority: title, round, string (used at work)
  - Extend formatting syntax for format filter
  - attr
  - batch

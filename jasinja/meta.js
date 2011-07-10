@@ -88,6 +88,16 @@ var filters = {
         return val ? val : alt;
     },
     
+    "dictsort": function(val) {
+        var keys = filters.list(val);
+        keys.sort();
+        var ls = [];
+        for (var i = 0; i < keys.length; i++) {
+            ls.push([keys[i], val[keys[i]]]);
+        }
+        return ls;
+    },
+    
     "e": function(s) {
         return this.escape(s);
     },

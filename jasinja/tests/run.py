@@ -73,6 +73,7 @@ TESTS = [
 	('{{ "%.1f %.1f"|format(y|float, z|float) }}', {'y': 'a', 'z': '4.5'}),
 	('{{ x|d(1) ~ " " ~ y|d(2, true) }}', {'y': 0}),
 	('{{ (x|list)[0] ~ (y|list)[1] }}', {'x': 'foo', 'y': {'a': 1, 'b': 2}}),
+	('{{ (x|dictsort)[1][1] }}', {'x': {'b': 1, 'a': 3}}),
 ]
 
 def loader(i):
