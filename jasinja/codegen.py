@@ -287,13 +287,10 @@ class JSCodeGen(CodeGenerator):
 			self.write(')')
 			return
 		
-		self.write(', [')
-		first = True
 		for n in node.args:
-			if not first: self.write(', ')
+			self.write(', ')
 			self.visit(n, frame)
-			first = False
-		self.write('])')
+		self.write(')')
 	
 	def visit_Test(self, node, frame):
 		self.write('tests.' + node.name + '(')

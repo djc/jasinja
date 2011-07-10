@@ -97,7 +97,8 @@ var filters = {
         return parseFloat(val) || 0.0;
     },
     
-    "format": function(fmt, vals) {
+    "format": function(fmt) {
+        var vals = Array.prototype.slice.call(arguments, 1);
         var regex = new RegExp('\%.*?[fis%]');
         while (regex.test(fmt)) {
 	        var m = regex.exec(fmt)[0];
