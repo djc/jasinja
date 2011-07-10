@@ -70,6 +70,7 @@ TESTS = [
 	('{{ x|length }} {{ x|count }}', {'x': [1, 2]}),
 	('{{ x|int }} {{ y|int }} {{ z|int }}', {'x': 3.5, 'y': 'a', 'z': '13'}),
 	('{{ x|capitalize }}', {'x': 'hello!'}),
+	('{{ "%.1f %.1f"|format(y|float, z|float) }}', {'y': 'a', 'z': '4.5'}),
 ]
 
 def loader(i):

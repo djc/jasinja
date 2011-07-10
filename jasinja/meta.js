@@ -92,7 +92,11 @@ var filters = {
         s = s.replace("'", '&#39;');
         return s;
     },
-
+    
+    "float": function(val) {
+        return parseFloat(val) || 0.0;
+    },
+    
     "format": function(fmt, vals) {
         var regex = new RegExp('\%.*?[fis%]');
         while (regex.test(fmt)) {
