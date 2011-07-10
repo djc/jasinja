@@ -133,6 +133,19 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('}')
 		self.writeline('')
 	
+	def visit_Const(self, node, frame):
+		val = node.value
+		if isinstance(val, float):
+			self.write(str(val))
+		elif val is False:
+			self.write('false')
+		elif val is True:
+			self.write('true')
+		elif val is None:
+			self.write('null')
+		else:
+			self.write(repr(val))
+	
 	def visit_Tuple(self, node, frame):
 		self.visit_List(node, frame)
 	
