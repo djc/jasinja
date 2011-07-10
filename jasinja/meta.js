@@ -168,6 +168,12 @@ var filters = {
         return val.join(d);
     },
     
+    "round": function(val) {
+        var num = arguments[1] ? arguments[1] : 0;
+        var mul = num ? num * 10 : 1;
+        return Math.round(val * mul) / mul;
+    },
+    
     "sort": function(val) {
         var c = val.slice(0);
         c.sort();
