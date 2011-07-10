@@ -72,6 +72,10 @@ var filters = {
         return Math.abs(n);
     },
     
+    "count": function(val) {
+        return filters.length(val);
+    },
+    
     "e": function(s) {
         return this.escape(s);
     },
@@ -103,6 +107,10 @@ var filters = {
 	        }
         }
         return fmt;
+    },
+    
+    "length": function(val) {
+        return val.length;
     },
     
     "join": function(val, d) {

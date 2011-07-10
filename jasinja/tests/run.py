@@ -67,6 +67,7 @@ TESTS = [
 	(testfile('nested-for.html'), {}),
 	('{{ x|join(", ") }}', {'x': ['1', '2', 3]}),
 	('{{ x|sort|join(", ") }}', {'x': [1, 2, 3]}),
+	('{{ x|length }} {{ x|count }}', {'x': [1, 2]}),
 ]
 
 def loader(i):
