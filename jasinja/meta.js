@@ -72,6 +72,10 @@ var filters = {
         return Math.abs(n);
     },
     
+    "capitalize": function(s) {
+        return s.charAt(0).toUpperCase() + s.substring(1);
+    },
+    
     "count": function(val) {
         return filters.length(val);
     },
@@ -107,6 +111,10 @@ var filters = {
 	        }
         }
         return fmt;
+    },
+    
+    "int": function(val) {
+        return Math.floor(val) || 0;
     },
     
     "length": function(val) {

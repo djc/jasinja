@@ -68,6 +68,8 @@ TESTS = [
 	('{{ x|join(", ") }}', {'x': ['1', '2', 3]}),
 	('{{ x|sort|join(", ") }}', {'x': [1, 2, 3]}),
 	('{{ x|length }} {{ x|count }}', {'x': [1, 2]}),
+	('{{ x|int }} {{ y|int }} {{ z|int }}', {'x': 3.5, 'y': 'a', 'z': '13'}),
+	('{{ x|capitalize }}', {'x': 'hello!'}),
 ]
 
 def loader(i):
