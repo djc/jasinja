@@ -72,6 +72,7 @@ TESTS = [
 	('{{ x|capitalize }}', {'x': 'hello!'}),
 	('{{ "%.1f %.1f"|format(y|float, z|float) }}', {'y': 'a', 'z': '4.5'}),
 	('{{ x|d(1) ~ " " ~ y|d(2, true) }}', {'y': 0}),
+	('{{ (x|list)[0] ~ (y|list)[1] }}', {'x': 'foo', 'y': {'a': 1, 'b': 2}}),
 ]
 
 def loader(i):

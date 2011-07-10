@@ -134,6 +134,26 @@ var filters = {
         return val.length;
     },
     
+    "list": function(val) {
+        if (val instanceof Array) {
+            return val;
+        } else if (typeof(val) == "string") {
+            var ls = [];
+            for (var i = 0; i < val.length; i++) {
+                ls.push(val.charAt(i));
+            }
+            return ls;
+        } else if (typeof(val) == "object") {
+            var ls = [];
+            for (var key in val) {
+                ls.push(key);
+            }
+            return ls;
+        } else {
+            throw new TypeError("containment is undefined");
+        }
+    },
+    
     "join": function(val, d) {
         return val.join(d);
     },
