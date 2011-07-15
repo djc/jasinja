@@ -168,6 +168,12 @@ var filters = {
         return val.join(d);
     },
     
+    "reverse": function(r) {
+    	var c = r.slice(0);
+    	c.reverse();
+    	return c;
+    },
+    
     "round": function(val) {
         var num = arguments[1] ? arguments[1] : 0;
         var mul = num ? num * 10 : 1;
@@ -178,12 +184,6 @@ var filters = {
         var c = val.slice(0);
         c.sort();
         return c;
-    },
-    
-    "reverse": function(r) {
-    	var c = r.slice(0);
-    	c.reverse();
-    	return c;
     }
 
 };
