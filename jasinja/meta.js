@@ -187,6 +187,10 @@ var filters = {
         return c;
     },
     
+    "string": function(val) {
+        return val.toString();
+    },
+    
     "title": function(s) {
         return s.replace(/[a-zA-Z]+/g, filters.capitalize);
     }

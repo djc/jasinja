@@ -77,6 +77,7 @@ TESTS = [
 	('{{ x|round|int ~ " " ~ y|round(2) }}', {'x': 3.55, 'y': 4.553}),
 	('{{ x|capitalize }}', {'x': 'ALPHA'}),
 	('{{ x|title }}', {'x': 'dsaldsa AKSDAS A3FDAS"s'}),
+	('{{ (x|string)[0:4] }}', {'x': 2143942}),
 ]
 
 def loader(i):

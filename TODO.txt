@@ -8,7 +8,6 @@ General
 Built-in filters
 ----------------
 
- - Priority: string (used at work)
  - Extend formatting syntax for format filter
  - attr
  - batch
