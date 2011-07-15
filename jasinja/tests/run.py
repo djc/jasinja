@@ -75,6 +75,8 @@ TESTS = [
 	('{{ (x|list)[0] ~ (y|list)[1] }}', {'x': 'foo', 'y': {'a': 1, 'b': 2}}),
 	('{{ (x|dictsort)[1][1] }}', {'x': {'b': 1, 'a': 3}}),
 	('{{ x|round|int ~ " " ~ y|round(2) }}', {'x': 3.55, 'y': 4.553}),
+	('{{ x|capitalize }}', {'x': 'ALPHA'}),
+	('{{ x|title }}', {'x': 'dsaldsa AKSDAS A3FDAS"s'}),
 ]
 
 def loader(i):

@@ -8,7 +8,7 @@ General
 Built-in filters
 ----------------
 
- - Priority: title, string (used at work)
+ - Priority: string (used at work)
  - Extend formatting syntax for format filter
  - attr
  - batch

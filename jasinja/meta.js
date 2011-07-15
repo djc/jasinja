@@ -73,6 +73,7 @@ var filters = {
     },
     
     "capitalize": function(s) {
+        s = s.toLowerCase();
         return s.charAt(0).toUpperCase() + s.substring(1);
     },
     
@@ -184,6 +185,10 @@ var filters = {
         var c = val.slice(0);
         c.sort();
         return c;
+    },
+    
+    "title": function(s) {
+        return s.replace(/[a-zA-Z]+/g, filters.capitalize);
     }
 
 };
