@@ -9,9 +9,7 @@ Built-in filters
 ----------------
 
  - Extend formatting syntax for format filter
- - attr
  - batch
- - center
  - filesizeformat
  - first
  - forceescape

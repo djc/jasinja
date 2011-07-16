@@ -81,6 +81,21 @@ var filters = {
         return s.charAt(0).toUpperCase() + s.substring(1);
     },
     
+    "center": function(s, width) {
+    	width = arguments[1] ? width : 80;
+        var pre = Math.floor((width - s.length) / 2);
+        var post = Math.ceil((width - s.length) / 2);
+        var buf = [];
+        for (var i = 0; i < pre; i++) {
+            buf.push(' ');
+        }
+        buf.push(s);
+        for (var i = 0; i < post; i++) {
+            buf.push(' ');
+        }
+        return buf.join('');
+    },
+    
     "count": function(val) {
         return filters.length(val);
     },
