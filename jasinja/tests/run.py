@@ -128,7 +128,7 @@ def run(i, verbose=False):
 		print 'py:', repr(py)
 	
 	res = js == py
-	if isinstance(js, str) and js.isdigit():
+	if isinstance(js, str) and js.isdigit() and py:
 		res = float(js) == float(py)
 	if {'true': 'True', 'false': 'False'}.get(js, js) == py:
 		res = True
