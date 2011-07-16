@@ -13,7 +13,6 @@ Built-in filters
  - forceescape
  - groupby
  - indent
- - last
  - lower
  - pprint
  - random

@@ -186,6 +186,14 @@ var filters = {
     "int": function(val) {
         return Math.floor(val) || 0;
     },
+
+    "last": function(val) {
+        if (typeof(val) == "string") {
+            return val.charAt(val.length - 1);
+        } else if (val instanceof Array) {
+            return val[val.length - 1];
+        }
+    },
     
     "length": function(val) {
         return val.length;
