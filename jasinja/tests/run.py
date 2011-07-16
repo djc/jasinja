@@ -84,6 +84,7 @@ TESTS = [
 	('{{ x|center(20) }}', {'x': 'aaaa'}),
 	('{{ x|center(20) }}', {'x': 'aaaaa'}),
 	('{{ x|filesizeformat }} {{ y|filesizeformat }}', {'x': 13, 'y': 21324}),
+	('{{ x|first ~ y|first }}', {'x': [1, 2], 'y': 'days'}),
 ]
 
 def loader(i):

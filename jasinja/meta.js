@@ -146,6 +146,14 @@ var filters = {
     	}
     	return filters.format("%.1f G%sB", bytes / (base * base * base), middle);
     },
+
+    "first": function(val) {
+        if (typeof(val) == "string") {
+            return val.charAt(0);
+        } else if (val instanceof Array) {
+            return val[0];
+        }
+    },
     
     "float": function(val) {
         return parseFloat(val) || 0.0;
