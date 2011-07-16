@@ -78,7 +78,6 @@ TESTS = [
 	('{{ x|capitalize }}', {'x': 'ALPHA'}),
 	('{{ x|title }}', {'x': 'dsaldsa AKSDAS A3FDAS"s'}),
 	('{{ (x|string)[0:4] }}', {'x': 2143942}),
-	('{{ foo|attr("bar") }}', {'foo': {'bar': 13}}),
 	('{% set a, b = x %}{{ a }}', {'x': (1, 2)}),
 	('{% for a, b in x %}{{ a }}{% endfor %}', {'x': [(1, 2)]}),
 	('{{ x|center(20) }}', {'x': 'aaaa'}),
