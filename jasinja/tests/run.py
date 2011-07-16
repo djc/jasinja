@@ -78,6 +78,7 @@ TESTS = [
 	('{{ x|capitalize }}', {'x': 'ALPHA'}),
 	('{{ x|title }}', {'x': 'dsaldsa AKSDAS A3FDAS"s'}),
 	('{{ (x|string)[0:4] }}', {'x': 2143942}),
+	('{{ foo|attr("bar") }}', {'foo': {'bar': 13}}),
 ]
 
 def loader(i):

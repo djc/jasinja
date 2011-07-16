@@ -68,6 +68,10 @@ var utils = {
 
 var filters = {
     
+    "attr": function(obj, name) {
+        return obj[name];
+    },
+    
     "abs": function(n) {
         return Math.abs(n);
     },
