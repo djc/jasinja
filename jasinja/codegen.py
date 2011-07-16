@@ -276,10 +276,19 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('loop.update();')
 		self.newline()
 		
-		frame.identifiers.declared.add(node.target.name)
-		self.write('var ')
-		self.visit(node.target, frame)
-		self.write(' = %s.iter[%s.i];' % (loopvar, loopvar))
+		if isinstance(node.target, nodes.Tuple):
+			for i, target in enumerate(node.target.items):
+				frame.identifiers.declared.add(target.name)
+				self.write('var ')
+				self.visit(target, frame)
+				bits = loopvar, loopvar, i
+				self.write(' = %s.iter[%s.i][%s];' % bits)
+				self.newline()
+		else:
+			frame.identifiers.declared.add(node.target.name)
+			self.write('var ')
+			self.visit(node.target, frame)
+			self.write(' = %s.iter[%s.i];' % (loopvar, loopvar))
 		
 		for n in node.body:
 			self.visit(n, frame)

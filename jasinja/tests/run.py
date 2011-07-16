@@ -80,6 +80,7 @@ TESTS = [
 	('{{ (x|string)[0:4] }}', {'x': 2143942}),
 	('{{ foo|attr("bar") }}', {'foo': {'bar': 13}}),
 	('{% set a, b = x %}{{ a }}', {'x': (1, 2)}),
+	('{% for a, b in x %}{{ a }}{% endfor %}', {'x': [(1, 2)]}),
 ]
 
 def loader(i):
