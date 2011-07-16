@@ -5,6 +5,7 @@ General
  - Import statements
  - Support for self and super
  - Test attr filter
+ - Test callable test
 
 Built-in filters
 ----------------
@@ -33,19 +34,10 @@ Built-in filters
 Built-in tests
 --------------
 
- - callable
- - divisibleby
  - escaped
- - even
  - iterable
- - lower
- - number
- - odd
  - sameas
  - sequence
- - string
- - undefined
- - upper
 
 Global functions
 ----------------

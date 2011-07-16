@@ -252,11 +252,38 @@ var filters = {
 };
 
 var tests = {
-    "none": function(val) {
-        return val === null;
+    "callable": function(val) {
+        return typeof(val) == "function";
     },
     "defined": function(val) {
         return val !== undefined;
+    },
+    "divisibleby": function(val, num) {
+        return !(val % num);
+    },
+    "even": function(val) {
+        return tests.divisibleby(val, 2);
+    },
+    "lower": function(val) {
+        return val.toLowerCase() == val;
+    },
+    "none": function(val) {
+        return val === null;
+    },
+    "number": function(val) {
+        return typeof(val) == "number";
+    },
+    "odd": function(val) {
+        return !tests.divisibleby(val, 2);
+    },
+    "undefined": function(val) {
+        return val === undefined;
+    },
+    "upper": function(val) {
+        return val.toUpperCase() == val;
+    },
+    "string": function(val) {
+        return typeof(val) == "string";
     }
 }
 

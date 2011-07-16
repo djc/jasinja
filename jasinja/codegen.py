@@ -16,14 +16,13 @@ class JSCodeGen(CodeGenerator):
 	def jsmacro(self, node, frame):
 		
 		self.writeline('')
-		self.write('"%s": function(ctx, ' % node.name)
+		self.write('"%s": function(ctx' % node.name)
 		
-		first, args = True, set()
+		args = set()
 		for n in node.args:
-			if not first: self.write(', ')
+			self.write(', ')
 			self.write(n.name)
 			args.add(n.name)
-			first = False
 		
 		self.write(') {')
 		self.indent()

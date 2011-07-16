@@ -85,6 +85,18 @@ TESTS = [
 	('{{ x|filesizeformat }} {{ y|filesizeformat }}', {'x': 13, 'y': 21324}),
 	('{{ x|first ~ y|first }}', {'x': [1, 2], 'y': 'days'}),
 	('{{ x|last ~ y|last }}', {'x': [1, 2], 'y': 'days'}),
+	('{{ x is divisibleby(3) }}', {'x': 6}),
+	('{{ x is odd }}', {'x': 6}),
+	('{{ x is even }}', {'x': 6}),
+	('{{ x is odd }}', {'x': 7}),
+	('{{ x is even }}', {'x': 7}),
+	('{{ x is upper }}', {'x': 'AAADSADSA'}),
+	('{{ x is lower }}', {'x': 'AAADSadsa'}),
+	('{{ x is string }}', {'x': 'a'}),
+	('{{ x is number }}', {'x': 'a'}),
+	('{{ x is string }}', {'x': 3}),
+	('{{ x is number }}', {'x': 3}),
+	('{{ x is undefined }}', {}),
 ]
 
 def loader(i):
