@@ -4,6 +4,7 @@ General
  - Call blocks
  - Import statements
  - Support for self and super
+ - Test attr filter
 
 Built-in filters
 ----------------
