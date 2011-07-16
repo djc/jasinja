@@ -131,6 +131,22 @@ var filters = {
         return s;
     },
     
+    "filesizeformat": function(val, binary) {
+    	binary = arguments[1] ? binary : false;
+    	var bytes = parseFloat(val);
+    	var base = binary ? 1024 : 1000;
+    	var middle = binary ? 'i' : '';
+    	if (bytes < base) {
+    		var multi = bytes == 1 ? '' : 's';
+    	    return filters.format("%i Byte%s", bytes, multi);
+    	} else if (bytes < base * base) {
+    	    return filters.format("%.1f K%sB", bytes / base, middle);
+    	} else if (bytes < base * base * base) {
+    	    return filters.format("%.1f M%sB", bytes / (base * base), middle);
+    	}
+    	return filters.format("%.1f G%sB", bytes / (base * base * base), middle);
+    },
+    
     "float": function(val) {
         return parseFloat(val) || 0.0;
     },
@@ -147,6 +163,9 @@ var filters = {
 	        	var mods = m.substring(1, m.length - 1).split('.');
 	        	if (mods[1]) val = val.toFixed(parseInt(mods[1], 10));
 	        	fmt = fmt.replace(m, val);
+	        } else if (type == "i") {
+	            val = parseInt(val).toString();
+	            fmt = fmt.replace(m, val);
 	        } else if (type == "s") {
 	        	fmt = fmt.replace(m, val.toString());
 	        } else if (type == "%") {

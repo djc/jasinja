@@ -10,7 +10,6 @@ Built-in filters
 
  - Extend formatting syntax for format filter
  - batch
- - filesizeformat
  - first
  - forceescape
  - groupby

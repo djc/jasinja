@@ -83,6 +83,7 @@ TESTS = [
 	('{% for a, b in x %}{{ a }}{% endfor %}', {'x': [(1, 2)]}),
 	('{{ x|center(20) }}', {'x': 'aaaa'}),
 	('{{ x|center(20) }}', {'x': 'aaaaa'}),
+	('{{ x|filesizeformat }} {{ y|filesizeformat }}', {'x': 13, 'y': 21324}),
 ]
 
 def loader(i):
