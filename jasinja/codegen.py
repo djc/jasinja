@@ -16,7 +16,7 @@ class JSCodeGen(CodeGenerator):
 	def jsmacro(self, node, frame):
 		
 		self.writeline('')
-		self.write('"%s": function(ctx' % node.name)
+		self.write('"%s": function(ctx, tmpl' % node.name)
 		
 		args = set()
 		for n in node.args:
@@ -181,8 +181,8 @@ class JSCodeGen(CodeGenerator):
 	def visit_Call(self, node, frame):
 		
 		if isinstance(node.node, nodes.Name):
-			self.write('this.macros.' + node.node.name)
-			self.write('(ctx, ')
+			self.write('tmpl.macros.' + node.node.name)
+			self.write('(ctx, tmpl, ')
 		else:
 			self.visit(node.node, frame)
 			self.write('(')

@@ -97,6 +97,7 @@ TESTS = [
 	('{{ x is string }}', {'x': 3}),
 	('{{ x is number }}', {'x': 3}),
 	('{{ x is undefined }}', {}),
+	(testfile('macro-nest.html'), {'x': 1}),
 ]
 
 def loader(i):
