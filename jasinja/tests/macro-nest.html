@@ -1,0 +1,3 @@
+{% macro b(x) %}{{ x }}{% endmacro %}
+{% macro a(x) %}{{ b(x) }}{% endmacro %}
+{{ a(x) }}
