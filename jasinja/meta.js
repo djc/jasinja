@@ -62,7 +62,15 @@ var utils = {
             buf.push(arguments[i].toString());
         }
         return buf.join("");
-    }
+    },
+    
+    "strmul": function(s, n) {
+    	var buf = [];
+    	for (var i = 0; i < n; i++) {
+    		buf.push(s);
+    	}
+    	return buf.join('');
+    },
 
 };
 
@@ -161,24 +169,47 @@ var filters = {
     
     "format": function(fmt) {
         var vals = Array.prototype.slice.call(arguments, 1);
-        var regex = new RegExp('\%.*?[fis%]');
+        var regex = new RegExp('\%([0 ]?)((?:[0-9]+)?)(\.[0-9]+)?([fis%])');
         while (regex.test(fmt)) {
-	        var m = regex.exec(fmt)[0];
-	        var type = m.substring(m.length - 1);
+        	
+        	var parts = regex.exec(fmt);
+	        var ext = parts[1] ? parts[1] : ' ';
+        	var wantlen = parseInt(parts[2]);
+	        var type = parts[0].substring(parts[0].length - 1);
         	var val = vals.shift();
+        	
 	        if (type == "f") {
+	        	
 	        	val = parseFloat(val);
-	        	var mods = m.substring(1, m.length - 1).split('.');
-	        	if (mods[1]) val = val.toFixed(parseInt(mods[1], 10));
-	        	fmt = fmt.replace(m, val);
+	        	if (parts[3]) {
+	        		val = val.toFixed(parseInt(parts[3].substring(1)));
+	        	} else {
+	        		val = val.toString();
+	        	}
+	        	if (val.length < wantlen) {
+	        		val = utils.strmul(ext, wantlen - val.length) + val;
+	        	}
+	        	fmt = fmt.replace(parts[0], val);
+	        	
 	        } else if (type == "i") {
+	        	
 	            val = parseInt(val).toString();
-	            fmt = fmt.replace(m, val);
+	            if (val.length < wantlen) {
+	            	val = utils.strmul(ext, wantlen - val.length) + val;
+	            }
+	            fmt = fmt.replace(parts[0], val);
+	            
 	        } else if (type == "s") {
-	        	fmt = fmt.replace(m, val.toString());
+	        	
+	        	if (val.length < wantlen) {
+	        		val = utils.strmul(ext, wantlen - val.length) + val;
+	        	}
+	        	fmt = fmt.replace(parts[0], val.toString());
+	        	
 	        } else if (type == "%") {
 	        	fmt = fmt.replace("%%", "%");
 	        }
+	        
         }
         return fmt;
     },

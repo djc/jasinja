@@ -98,6 +98,12 @@ TESTS = [
 	('{{ x is number }}', {'x': 3}),
 	('{{ x is undefined }}', {}),
 	(testfile('macro-nest.html'), {'x': 1}),
+	('{{ "%03i"|format(x) }}', {'x': 1}),
+	('{{ "% 5i"|format(x) }}', {'x': 13}),
+	('{{ "%10.2f"|format(x) }}', {'x': 13.6}),
+	('{{ "%6i"|format(x) }}', {'x': 7}),
+	('{{ "%.2f"|format(x) }}', {'x': 3.758}),
+	('{{ "%20s"|format(x) }}', {'x': 'xxx'}),
 ]
 
 def loader(i):
