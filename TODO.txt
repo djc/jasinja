@@ -10,7 +10,6 @@ General
 Built-in filters
 ----------------
 
- - Extend formatting syntax for format filter
  - batch
  - forceescape
  - groupby
