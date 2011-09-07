@@ -27,6 +27,7 @@ var utils = {
             this.l = iter.length;
             this.i = 0;
             this.update = function() {
+            	if (arguments.length) this.i = arguments[0];
             	this.index = this.i + 1;
             	this.index0 = this.i;
             	this.revindex = this.l - this.i;
