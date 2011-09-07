@@ -53,7 +53,7 @@ var utils = {
         } else if (typeof(hs) == "object") {
             return hs[n] !== undefined;
         } else {
-            throw new TypeError("containment is undefined");
+            throw new TypeError("containment is undefined: " + n + " in " + JSON.stringify(hs));
         }
     },
 
