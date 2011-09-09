@@ -239,6 +239,23 @@ var filters = {
         return fmt;
     },
     
+    "groupby": function(ls, attr) {
+        
+        var groups = {};
+        for (var i = 0; i < ls.length; i++) {
+            var key = ls[i][attr];
+            if (!(key in groups)) groups[key] = [];
+            groups[key].push(ls[i]);
+        }
+        var res = [];
+        for (var key in groups) {
+            res.push({0: key, grouper: key, 1: groups[key], list: groups[key]});
+        }
+        
+        return res;
+        
+    },
+    
     "int": function(val) {
         return Math.floor(val) || 0;
     },

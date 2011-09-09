@@ -12,7 +12,6 @@ General
 Built-in filters
 ----------------
 
- - groupby
  - indent
  - pprint
  - random

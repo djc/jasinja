@@ -112,6 +112,7 @@ TESTS = [
 	('{{ x|sum(10) }}', {'x': [1, 2, 3]}),
 	(testfile('batched.html'), {'x': [1, 2, 3, 4, 5, 6]}),
 	(testfile('batched.html'), {'x': [1, 2, 3]}),
+	(testfile('groupby.html'), {'x': [{'a': 1, 'b': 2}, {'a': 1, 'b': 3}]}),
 ]
 
 def loader(i):
