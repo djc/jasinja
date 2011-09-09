@@ -108,6 +108,7 @@ TESTS = [
 	('{{ "%6i"|format(x) }}', {'x': 7}),
 	('{{ "%.2f"|format(x) }}', {'x': 3.758}),
 	('{{ "%20s"|format(x) }}', {'x': 'xxx'}),
+	('{{ x|upper }}{{ y|lower }}', {'x': 'aAa', 'y': 'AaA'}),
 ]
 
 def loader(i):

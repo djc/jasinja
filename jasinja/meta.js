@@ -251,6 +251,10 @@ var filters = {
         }
     },
     
+    "lower": function(s) {
+        return s.toLowerCase();
+    },
+    
     "join": function(val, d) {
         return val.join(d);
     },
@@ -279,6 +283,10 @@ var filters = {
     
     "title": function(s) {
         return s.replace(/[a-zA-Z]+/g, filters.capitalize);
+    },
+    
+    "upper": function(s) {
+        return s.toUpperCase();
     }
 
 };
