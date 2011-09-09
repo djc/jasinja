@@ -313,6 +313,10 @@ var filters = {
         return ls[Math.floor(Math.random() * ls.length)]
     },
     
+    "replace": function(s, o, n) {
+        return s.replace(o, n, 'g');
+    },
+    
     "reverse": function(r) {
     	var c = r.slice(0);
     	c.reverse();

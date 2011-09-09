@@ -115,6 +115,7 @@ TESTS = [
 	(testfile('groupby.html'), {'x': [{'a': 1, 'b': 2}, {'a': 1, 'b': 3}]}),
 	('{{ x|indent }}', {'x': 'one\ntwo\nthree'}),
 	('{{ x|indent(4, true) }}', {'x': 'one\ntwo\nthree'}),
+	('{{ x|replace("a", "b") }}', {'x': 'abcdefa'}),
 ]
 
 def loader(i):
