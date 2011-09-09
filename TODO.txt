@@ -13,7 +13,6 @@ Built-in filters
 ----------------
 
  - pprint
- - slice
  - striptags
  - trim
  - truncate

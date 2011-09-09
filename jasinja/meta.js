@@ -333,6 +333,25 @@ var filters = {
         return s;
     },
     
+    "slice": function(ls, num, fill) {
+        var ssize = Math.floor(ls.length / num);
+        var extra = ls.length % num;
+        var offset = 0;
+        var res = [];
+        var offset = 0;
+        for (var i = 0; i < num; i++) {
+        	var start = offset + i * ssize;
+        	if (i < extra) offset += 1;
+        	var end = offset + (i + 1) * ssize;
+        	var tmp = ls.slice(start, end);
+        	if (fill !== undefined && i >= extra) {
+        		tmp.push(fill);
+        	}
+        	res.push(tmp);
+        }
+        return res;
+    },
+    
     "sort": function(val) {
         var c = val.slice(0);
         c.sort();

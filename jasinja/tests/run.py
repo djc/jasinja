@@ -116,6 +116,8 @@ TESTS = [
 	('{{ x|indent }}', {'x': 'one\ntwo\nthree'}),
 	('{{ x|indent(4, true) }}', {'x': 'one\ntwo\nthree'}),
 	('{{ x|replace("a", "b") }}', {'x': 'abcdefa'}),
+	(testfile('sliced.html'), {'x': [1, 2, 3]}),
+	(testfile('sliced.html'), {'x': [1, 2, 3, 4, 5, 6]}),
 ]
 
 def loader(i):
