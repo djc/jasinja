@@ -1,0 +1,11 @@
+{% for row in x|batch(3) -%}
+  r:{% for col in row -%}
+    c:{{ col }}
+  {%- endfor -%}
+{% endfor %}
+
+{% for row in x|batch(2, 'a') -%}
+  r:{% for col in row -%}
+    c:{{ col }}
+  {%- endfor -%}
+{% endfor %}

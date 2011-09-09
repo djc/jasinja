@@ -1,0 +1,7 @@
+{% for group in x|groupby('a') %}
+  {{ group.grouper }}: {% for i in group.list %}{{ i.b }}{% endfor %}
+{% endfor %}
+
+{% for grouper, list in x|groupby('a') %}
+  {{ grouper }}: {% for i in list %}{{ i.b }}{% endfor %}
+{% endfor %}
