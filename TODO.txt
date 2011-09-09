@@ -19,7 +19,6 @@ Built-in filters
  - urlize
  - wordcount
  - wordwrap
- - xmlattr
 
 Built-in tests
 --------------

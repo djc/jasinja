@@ -376,8 +376,19 @@ var filters = {
     
     "upper": function(s) {
         return s.toUpperCase();
+    },
+    
+    "xmlattr": function(d, space) {
+        space = space === undefined ? true : space;
+        var tmp = [];
+        for (var k in d) {
+            if (d[k] === null || d[k] === undefined) continue;
+            tmp.push(this.format('%s="%s"', this.escape(k), this.escape(d[k])));
+        }
+        var res = (space ? ' ' : '') + tmp.join(' ');
+        return res;
     }
-
+    
 };
 
 var tests = {
