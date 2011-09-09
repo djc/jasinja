@@ -110,6 +110,8 @@ TESTS = [
 	('{{ "%20s"|format(x) }}', {'x': 'xxx'}),
 	('{{ x|upper }}{{ y|lower }}', {'x': 'aAa', 'y': 'AaA'}),
 	('{{ x|sum(10) }}', {'x': [1, 2, 3]}),
+	(testfile('batched.html'), {'x': [1, 2, 3, 4, 5, 6]}),
+	(testfile('batched.html'), {'x': [1, 2, 3]}),
 ]
 
 def loader(i):

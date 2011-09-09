@@ -85,6 +85,26 @@ var filters = {
         return Math.abs(n);
     },
     
+    "batch": function(ls, num, fill) {
+    	fill = fill === undefined ? null : fill;
+    	var res = [];
+    	var tmp = [];
+    	for (var i = 0; i < ls.length; i++) {
+    	    if (tmp.length == num) {
+    	        res.push(tmp);
+    	        tmp = [];
+    	    }
+    	    tmp.push(ls[i]);
+    	}
+    	if (tmp.length && tmp.length < num && fill) {
+    	    for (var i = num - 1; i > 0; i--) {
+    	        tmp.push(fill);
+    	    }
+    	}
+    	if (tmp.length) res.push(tmp);
+    	return res;
+    },
+    
     "capitalize": function(s) {
         s = s.toLowerCase();
         return s.charAt(0).toUpperCase() + s.substring(1);
