@@ -374,6 +374,10 @@ var filters = {
         return s.replace(/[a-zA-Z]+/g, filters.capitalize);
     },
     
+    "trim": function(s) {
+        return s.replace(/^\s+|\s+$/g, '');
+    },
+    
     "upper": function(s) {
         return s.toUpperCase();
     },

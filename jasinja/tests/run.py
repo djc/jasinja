@@ -120,6 +120,7 @@ TESTS = [
 	(testfile('sliced.txt'), {'x': [1, 2, 3, 4, 5, 6]}),
 	('{{ x|xmlattr }}', {'x': {'a': 'c', 'b': 'd'}}),
 	('{{ x|xmlattr(false) }}', {'x': {'a': None, 'b': 'd'}}),
+	('{{ x|trim }}', {'x': '\na\t '}),
 ]
 
 def loader(i):
