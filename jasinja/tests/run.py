@@ -1,4 +1,4 @@
-import jinja2, spidermonkey, sys, os
+import jinja2, spidermonkey, sys, os, unittest
 from jasinja import codegen
 
 try:
@@ -143,7 +143,7 @@ def pytest(env, data):
 	tmpl = env.get_template('index')
 	return tmpl.render(data)
 
-def run(i, verbose=False):
+def run(self, i, verbose=False):
 	
 	src, data = TESTS[i]
 	env = jinja2.Environment(loader=loader(i))
@@ -184,9 +184,22 @@ def test():
 	
 	sys.stdout.write('\n')
 
+attrs = {'_do': run}
+for i, case in enumerate(TESTS):
+	m = lambda self: self._do(i)
+	m.__name__ = 'test_%i' % i
+	m.__doc__ = 'Test case %i' % i
+	attrs['test_%i' % i] = m
+
+JasinjaTests = type('JasinjaTests', (unittest.TestCase,), attrs)
+
 if __name__ == '__main__':
 	args = sys.argv[1:]
 	if args:
-		run(int(args[0]), True)
+		run(None, int(args[0]), True)
 	else:
-		test()
+		all = [unittest.TestLoader().loadTestsFromTestCase(JasinjaTests)]
+		runner = unittest.TextTestRunner()
+		result = runner.run(unittest.TestSuite(all))
+		if not result.wasSuccessful():
+			sys.exit(1)
