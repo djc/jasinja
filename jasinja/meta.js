@@ -403,6 +403,10 @@ var filters = {
         return s.toUpperCase();
     },
     
+    "wordcount": function(s) {
+        return s.split(/\s+/g).length;
+    },
+    
     "xmlattr": function(d, space) {
         space = space === undefined ? true : space;
         var tmp = [];

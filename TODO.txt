@@ -15,7 +15,6 @@ Built-in filters
  - pprint
  - striptags
  - urlize
- - wordcount
  - wordwrap
 
 Built-in tests
