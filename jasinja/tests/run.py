@@ -198,13 +198,12 @@ for i, case in enumerate(TESTS):
 
 JasinjaTests = type('JasinjaTests', (unittest.TestCase,), attrs)
 
+def suite():
+    return unittest.makeSuite(JasinjaTests, 'test')
+
 if __name__ == '__main__':
 	args = sys.argv[1:]
 	if args:
 		run(None, int(args[0]), True)
 	else:
-		all = [unittest.TestLoader().loadTestsFromTestCase(JasinjaTests)]
-		runner = unittest.TextTestRunner()
-		result = runner.run(unittest.TestSuite(all))
-		if not result.wasSuccessful():
-			sys.exit(1)
+	    unittest.main(defaultTest='suite')
