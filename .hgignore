@@ -1,2 +1,4 @@
 syntax: glob
+MANIFEST
 *.pyc
+*.egg-info/*
