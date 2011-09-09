@@ -1,6 +1,10 @@
 import jinja2, spidermonkey, sys, os
-import simplejson as json
 from jasinja import codegen
+
+try:
+	import simplejson as json
+except ImportError:
+	import json
 
 dir = os.path.dirname(__file__)
 
