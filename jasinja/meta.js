@@ -281,6 +281,14 @@ var filters = {
         return val.toString();
     },
     
+    "sum": function(ls, start) {
+        start = start === undefined ? 0 : start;
+        for (var i = 0; i < ls.length; i++) {
+            start += ls[i];
+        }
+        return start;
+    },
+    
     "title": function(s) {
         return s.replace(/[a-zA-Z]+/g, filters.capitalize);
     },

@@ -109,6 +109,7 @@ TESTS = [
 	('{{ "%.2f"|format(x) }}', {'x': 3.758}),
 	('{{ "%20s"|format(x) }}', {'x': 'xxx'}),
 	('{{ x|upper }}{{ y|lower }}', {'x': 'aAa', 'y': 'AaA'}),
+	('{{ x|sum(10) }}', {'x': [1, 2, 3]}),
 ]
 
 def loader(i):

@@ -6,6 +6,7 @@ General
  - Support for self and super
  - Test attr filter
  - Test callable test
+ - Update to jinja 2.6
 
 Built-in filters
 ----------------
@@ -20,7 +21,6 @@ Built-in filters
  - safe
  - slice
  - striptags
- - sum
  - trim
  - truncate
  - urlize
