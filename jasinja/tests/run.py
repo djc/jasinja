@@ -193,7 +193,10 @@ attrs = {'_do': run}
 for i, case in enumerate(TESTS):
 	m = lambda self: self._do(i)
 	m.__name__ = 'test_%i' % i
-	m.__doc__ = 'Test case %i' % i
+	if isinstance(case[0], basestring) and len(case[0]) < 40:
+		m.__doc__ = '%i: %s' % (i, case[0])
+	else:
+		m.__doc__ = 'Test case %i' % i
 	attrs['test_%i' % i] = m
 
 JasinjaTests = type('JasinjaTests', (unittest.TestCase,), attrs)
