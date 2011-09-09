@@ -7,17 +7,16 @@ General
  - Test attr filter
  - Test callable test
  - Update to jinja 2.6
+ - Integrate markup strings (fix escape, safe, forceescape filters)
 
 Built-in filters
 ----------------
 
- - forceescape
  - groupby
  - indent
  - pprint
  - random
  - replace
- - safe
  - slice
  - striptags
  - trim

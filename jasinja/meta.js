@@ -160,6 +160,10 @@ var filters = {
         return s;
     },
     
+    "forceescape": function(s) {
+        return this.escape(s);
+    },
+    
     "filesizeformat": function(val, binary) {
     	binary = arguments[1] ? binary : false;
     	var bytes = parseFloat(val);
@@ -289,6 +293,10 @@ var filters = {
         var num = arguments[1] ? arguments[1] : 0;
         var mul = num ? num * 10 : 1;
         return Math.round(val * mul) / mul;
+    },
+    
+    "safe": function(s) {
+        return s;
     },
     
     "sort": function(val) {
