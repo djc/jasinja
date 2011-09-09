@@ -378,6 +378,27 @@ var filters = {
         return s.replace(/^\s+|\s+$/g, '');
     },
     
+    "truncate": function(s, len, kill, end) {
+    	
+        len = len === undefined ? 255 : len;
+        if (s.length < len) return s;
+        kill = kill === undefined ? false : kill;
+        end = end === undefined ? '...' : end;
+        if (kill) return s.substring(0, len) + end;
+        
+        var words = s.split(' ');
+        var result = [];
+        var m = 0;
+        for (var i = 0; i < words.length; i++) {
+            m += words[i].length + 1
+            if (m > len) break;
+            result.push(words[i]);
+        }
+        result.push(end);
+        return result.join(' ');
+        
+    },
+    
     "upper": function(s) {
         return s.toUpperCase();
     },

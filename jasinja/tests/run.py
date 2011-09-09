@@ -121,6 +121,9 @@ TESTS = [
 	('{{ x|xmlattr }}', {'x': {'a': 'c', 'b': 'd'}}),
 	('{{ x|xmlattr(false) }}', {'x': {'a': None, 'b': 'd'}}),
 	('{{ x|trim }}', {'x': '\na\t '}),
+	('{{ x|truncate(3) }}', {'x': 'xxxxxxxxx'}),
+	('{{ x|truncate(3, false) }}', {'x': 'xxxxxxxxx'}),
+	('{{ x|truncate(3, false, ">") }}', {'x': 'xx xxxxxxx'}),
 ]
 
 def loader(i):
