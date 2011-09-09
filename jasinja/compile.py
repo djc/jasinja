@@ -5,5 +5,8 @@ def compile(path, templates):
 	templates = templates if templates else env.loader.list_templates()
 	print codegen.generate(env, templates)
 
-if __name__ == '__main__':
+def main():
 	compile(sys.argv[1], sys.argv[2:])
+
+if __name__ == '__main__':
+	main()
