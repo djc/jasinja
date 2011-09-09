@@ -13,7 +13,6 @@ Built-in filters
 ----------------
 
  - pprint
- - random
  - replace
  - slice
  - striptags

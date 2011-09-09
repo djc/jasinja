@@ -309,6 +309,10 @@ var filters = {
         return val.join(d);
     },
     
+    "random": function(ls) {
+        return ls[Math.floor(Math.random() * ls.length)]
+    },
+    
     "reverse": function(r) {
     	var c = r.slice(0);
     	c.reverse();
