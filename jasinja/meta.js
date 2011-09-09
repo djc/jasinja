@@ -256,6 +256,15 @@ var filters = {
         
     },
     
+    "indent": function(s, w, first) {
+        w = w === undefined ? 4 : w;
+        first = first === undefined ? false : first;
+        var indent = utils.strmul(' ', w);
+        var res = s.split('\n').join('\n' + indent);
+        if (first) res = indent + res;
+        return res;
+    },
+    
     "int": function(val) {
         return Math.floor(val) || 0;
     },

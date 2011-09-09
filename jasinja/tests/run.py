@@ -113,6 +113,8 @@ TESTS = [
 	(testfile('batched.html'), {'x': [1, 2, 3, 4, 5, 6]}),
 	(testfile('batched.html'), {'x': [1, 2, 3]}),
 	(testfile('groupby.html'), {'x': [{'a': 1, 'b': 2}, {'a': 1, 'b': 3}]}),
+	('{{ x|indent }}', {'x': 'one\ntwo\nthree'}),
+	('{{ x|indent(4, true) }}', {'x': 'one\ntwo\nthree'}),
 ]
 
 def loader(i):
