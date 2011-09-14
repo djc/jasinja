@@ -125,6 +125,8 @@ TESTS = [
 	('{{ x|truncate(3, false) }}', {'x': 'xxxxxxxxx'}),
 	('{{ x|truncate(3, false, ">") }}', {'x': 'xx xxxxxxx'}),
 	('{{ x|wordcount }}', {'x': 'foo bar crap\t\nsomething'}),
+	('{{ x|default("A") }}', {'x': ''}),
+	('{{ x|default("A", true) }}', {'x': ''}),
 ]
 
 def loader(i):

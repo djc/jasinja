@@ -133,8 +133,13 @@ var filters = {
         return filters.default(val, alt);
     },
     
-    "default": function(val, alt) {
-        return val ? val : alt;
+    "default": function(val, alt, bool) {
+        bool = bool === undefined ? false : true;
+        if (!bool) {
+            return val !== undefined ? val : alt;
+        } else {
+            return val ? val : alt;
+        }
     },
     
     "dictsort": function(val) {
