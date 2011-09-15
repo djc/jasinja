@@ -127,6 +127,8 @@ TESTS = [
 	('{{ x|wordcount }}', {'x': 'foo bar crap\t\nsomething'}),
 	('{{ x|default("A") }}', {'x': ''}),
 	('{{ x|default("A", true) }}', {'x': ''}),
+	(testfile('macro-assign.txt'), {'b': 1}),
+	('{% macro a() %}{{ x }}{% endmacro %}{% set x = y %}', {'y': 1}),
 ]
 
 def loader(i):

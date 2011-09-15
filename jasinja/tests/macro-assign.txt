@@ -1,0 +1,2 @@
+{% macro m(x) %}{% set a = x + 1 %}{{ a }}{% endmacro %}
+{{ m(b) }}
