@@ -179,7 +179,7 @@ def run(self, i, verbose=False):
 	if verbose:
 		print 'EQ:', res
 	
-	return res
+	assert res
 
 def test():
 	
