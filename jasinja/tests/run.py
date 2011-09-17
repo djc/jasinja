@@ -142,7 +142,7 @@ def jstest(env, data):
 	ctx = run.new_context()
 	js = codegen.generate(env)
 	jsobj = json.dumps(data)
-	code = js + '\ntemplates.index.render(%s);' % jsobj
+	code = js + '\nJasinja.templates.index.render(%s);' % jsobj
 	try:
 		return str(ctx.execute(code))
 	except spidermonkey.JSError, e:

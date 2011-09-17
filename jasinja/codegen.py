@@ -117,7 +117,7 @@ class JSCodeGen(CodeGenerator):
 			self.write('].render(ctx, this);')
 		else:
 			self.writeline('')
-			self.writeline('tmpl = utils.extend(this, tmpl);')
+			self.writeline('tmpl = Jasinja.utils.extend(this, tmpl);')
 			self.writeline('')
 			self.writeline('var %s = [];' % frame.buffer)
 			for n in node.body:
@@ -169,7 +169,7 @@ class JSCodeGen(CodeGenerator):
 			self.visit(n, local)
 		
 		bits = frame.buffer, node.filter.name, local.buffer
-		self.writeline('%s.push(filters.%s(%s.join("")));' % bits)
+		self.writeline('%s.push(Jasinja.filters.%s(%s.join("")));' % bits)
 	
 	def visit_Assign(self, node, frame):
 		frame.identifiers.declared.add(node.target.name)
@@ -233,7 +233,7 @@ class JSCodeGen(CodeGenerator):
 		if isinstance(node.arg, nodes.Slice):
 			
 			assert node.arg.step is None
-			self.write('utils.slice(')
+			self.write('Jasinja.utils.slice(')
 			self.visit(node.node, frame)
 			self.write(', ')
 			
@@ -264,7 +264,7 @@ class JSCodeGen(CodeGenerator):
 		frame.identifiers.declared.add('loop')
 		
 		self.newline()
-		self.write('var %s = utils.loop(' % loopvar)
+		self.write('var %s = Jasinja.utils.loop(' % loopvar)
 		self.visit(node.iter, frame)
 		self.write(');')
 		
@@ -303,7 +303,7 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_Filter(self, node, frame):
 		
-		self.write('filters.' + node.name + '(')
+		self.write('Jasinja.filters.' + node.name + '(')
 		self.visit(node.node, frame)
 		
 		if not node.args:
@@ -316,7 +316,7 @@ class JSCodeGen(CodeGenerator):
 		self.write(')')
 	
 	def visit_Test(self, node, frame):
-		self.write('tests.' + node.name + '(')
+		self.write('Jasinja.tests.' + node.name + '(')
 		self.visit(node.node, frame)
 		self.write(')')
 	
@@ -325,7 +325,7 @@ class JSCodeGen(CodeGenerator):
 		self.visit(node.node, frame)
 	
 	def visit_Concat(self, node, frame):
-		self.write('utils.strjoin(')
+		self.write('Jasinja.utils.strjoin(')
 		first = True
 		for n in node.nodes:
 			if not first: self.write(', ')
@@ -365,7 +365,7 @@ class JSCodeGen(CodeGenerator):
 		oper = node.ops[0]
 		if oper.op == 'notin':
 			self.write('!')
-		self.write('utils.contains(')
+		self.write('Jasinja.utils.contains(')
 		self.visit(node.expr, frame)
 		self.write(', ')
 		self.visit(oper.expr, frame)
@@ -399,7 +399,7 @@ def generate(env, templates=None):
 		out.append(gen.stream.getvalue().rstrip())
 	
 	src = open(META).read()
-	return src.replace('[DATA]', ',\n    \n'.join(out))
+	return src.replace('%(templates)s', ',\n\t\n'.join(out))
 
 def pygen(env, name):
 	src, fn, up = env.loader.get_source(env, name)
