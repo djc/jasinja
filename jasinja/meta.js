@@ -369,10 +369,11 @@ var Jasinja = {
 			return val.toString();
 		},
 		
-		"sum": function(ls, start) {
+		"sum": function(ls, attrib, start) {
 			start = start === undefined ? 0 : start;
 			for (var i = 0; i < ls.length; i++) {
-				start += ls[i];
+				if (attrib === undefined) start += ls[i];
+				else start += ls[i][attrib];
 			}
 			return start;
 		},

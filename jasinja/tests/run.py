@@ -109,7 +109,7 @@ TESTS = [
 	('{{ "%.2f"|format(x) }}', {'x': 3.758}),
 	('{{ "%20s"|format(x) }}', {'x': 'xxx'}),
 	('{{ x|upper }}{{ y|lower }}', {'x': 'aAa', 'y': 'AaA'}),
-	('{{ x|sum(10) }}', {'x': [1, 2, 3]}),
+	('{{ x|sum(start=10) }}', {'x': [1, 2, 3]}),
 	(testfile('batched.txt'), {'x': [1, 2, 3, 4, 5, 6]}),
 	(testfile('batched.txt'), {'x': [1, 2, 3]}),
 	(testfile('groupby.txt'), {'x': [{'a': 1, 'b': 2}, {'a': 1, 'b': 3}]}),
