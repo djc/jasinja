@@ -6,13 +6,13 @@ try:
 except ImportError:
 	import json
 
-dir = os.path.dirname(__file__)
+DIR = os.path.dirname(__file__)
 
 def testdir(x):
-	return jinja2.FileSystemLoader(os.path.join(dir, x))
+	return jinja2.FileSystemLoader(os.path.join(DIR, x))
 
 def testfile(x):
-	return open(os.path.join(dir, x)).read()
+	return open(os.path.join(DIR, x)).read()
 
 TESTS = [
 	('{{ test }}', {'test': 'crap'}),
