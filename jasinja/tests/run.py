@@ -129,6 +129,8 @@ TESTS = [
 	('{{ x|default("A", true) }}', {'x': ''}),
 	(testfile('macro-assign.txt'), {'b': 1}),
 	('{% macro a() %}{{ x }}{% endmacro %}{% set x = y %}', {'y': 1}),
+	('{% macro a(b=1) %}{{ b }}{% endmacro %}{{ a() }}', {}),
+	('{% macro a(b=1) %}{{ b }}{% endmacro %}{{ a(x) }}', {'x': 2}),
 ]
 
 def loader(i):

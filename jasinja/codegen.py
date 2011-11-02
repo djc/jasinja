@@ -45,12 +45,22 @@ class JSCodeGen(CodeGenerator):
 			self.write(n.name)
 			args.add(n.name)
 		
-		self.write(') {')
-		self.indent()
-		self.writeline('var %s = [];' % frame.buffer)
-		
 		frame = Frame(frame.eval_ctx, frame)
 		frame.identifiers.declared = args
+		self.write(') {')
+		self.indent()
+		self.newline()
+		
+		for arg, val in zip(node.args, node.defaults):
+			self.visit(arg, frame)
+			self.write(' = ')
+			self.visit(arg, frame)
+			self.write(' || ')
+			self.visit(val, frame)
+			self.write(';')
+		
+		self.newline()
+		self.writeline('var %s = [];' % frame.buffer)
 		for n in node.body:
 			self.visit(n, frame)
 		
@@ -211,10 +221,15 @@ class JSCodeGen(CodeGenerator):
 		
 		if isinstance(node.node, nodes.Name):
 			self.write('tmpl.macros.' + node.node.name)
-			self.write('(ctx, tmpl, ')
+			self.write('(ctx, tmpl')
+			if node.args: self.write(', ')
 		else:
 			self.visit(node.node, frame)
 			self.write('(')
+		
+		if not node.args:
+			self.write(')')
+			return
 		
 		first = True
 		for n in node.args:
