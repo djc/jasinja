@@ -193,9 +193,14 @@ def test():
 	
 	sys.stdout.write('\n')
 
+def testfunc(i):
+	def do(self):
+		return self._do(i)
+	return do
+
 attrs = {'_do': run}
 for i, case in enumerate(TESTS):
-	m = lambda self: self._do(i)
+	m = testfunc(i)
 	m.__name__ = 'test_%i' % i
 	if isinstance(case[0], basestring) and len(case[0]) < 40:
 		m.__doc__ = '%i: %s' % (i, case[0])
