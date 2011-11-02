@@ -131,12 +131,12 @@ var Jasinja = {
 			return this.length(val);
 		},
 		
-		"d": function(val, alt) {
-			return this.default(val, alt);
+		"d": function(val, alt, bool) {
+			return this.default(val, alt, bool);
 		},
 		
 		"default": function(val, alt, bool) {
-			bool = bool === undefined ? false : true;
+			bool = bool || false;
 			if (!bool) {
 				return val !== undefined ? val : alt;
 			} else {
