@@ -131,6 +131,8 @@ TESTS = [
 	('{% macro a() %}{{ x }}{% endmacro %}{% set x = y %}', {'y': 1}),
 	('{% macro a(b=1) %}{{ b }}{% endmacro %}{{ a() }}', {}),
 	('{% macro a(b=1) %}{{ b }}{% endmacro %}{{ a(x) }}', {'x': 2}),
+	('{% macro a(b=1) %}{{ b }}{% endmacro %}{{ a(x) }}', {'x': 2}),
+	('{% macro a(b, c=1) %}{{ b }}{{ c }}{% endmacro %}{{ a(3) }}', {}),
 ]
 
 def loader(i):

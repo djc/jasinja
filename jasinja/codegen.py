@@ -51,7 +51,7 @@ class JSCodeGen(CodeGenerator):
 		self.indent()
 		self.newline()
 		
-		for arg, val in zip(node.args, node.defaults):
+		for arg, val in zip(node.args[-len(node.defaults):], node.defaults):
 			self.visit(arg, frame)
 			self.write(' = ')
 			self.visit(arg, frame)
