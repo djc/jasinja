@@ -133,6 +133,7 @@ TESTS = [
 	('{% macro a(b=1) %}{{ b }}{% endmacro %}{{ a(x) }}', {'x': 2}),
 	('{% macro a(b=1) %}{{ b }}{% endmacro %}{{ a(x) }}', {'x': 2}),
 	('{% macro a(b, c=1) %}{{ b }}{{ c }}{% endmacro %}{{ a(3) }}', {}),
+	('{% for x in y if x % 2 %}{{ x }}{% endfor %}', {'y': range(6)}),
 ]
 
 def loader(i):

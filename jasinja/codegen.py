@@ -313,12 +313,10 @@ class JSCodeGen(CodeGenerator):
 		self.newline()
 		vars = (loopvar,) * 4
 		self.write('for (%s.i = 0; %s.i < %s.l; %s.i++) {' % vars)
-		self.newline()
 		self.indent()
-		self.writeline('loop = %s;' % loopvar);
-		self.writeline('loop.update();')
-		self.newline()
+		self.writeline('')
 		
+		self.newline()
 		if isinstance(node.target, nodes.Tuple):
 			for i, target in enumerate(node.target.items):
 				frame.identifiers.declared.add(target.name)
@@ -333,9 +331,20 @@ class JSCodeGen(CodeGenerator):
 			self.visit(node.target, frame)
 			self.write(' = %s.iter[%s.i];' % (loopvar, loopvar))
 		
+		if node.test:
+			self.newline()
+			self.write('if (!')
+			self.visit(node.test, frame)
+			self.write(') continue;')
+		
+		self.writeline('loop = %s;' % loopvar);
+		self.writeline('loop.update();')
+		self.writeline('')
+		
 		for n in node.body:
 			self.visit(n, frame)
 		
+		self.writeline('')
 		self.outdent()
 		self.writeline('}')
 		if loopvar[8:] != '0':
