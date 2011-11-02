@@ -172,7 +172,13 @@ class JSCodeGen(CodeGenerator):
 		self.writeline('%s.push(Jasinja.filters.%s(%s.join("")));' % bits)
 	
 	def visit_Assign(self, node, frame):
-		frame.identifiers.declared.add(node.target.name)
+		
+		if isinstance(node.target, nodes.Tuple):
+			for target in node.target.items:
+				frame.identifiers.declared.add(target.name)
+		else:
+			frame.identifiers.declared.add(node.target.name)
+		
 		self.newline()
 		self.write('var ')
 		self.visit(node.target, frame)
