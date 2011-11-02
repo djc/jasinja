@@ -298,6 +298,23 @@ class JSCodeGen(CodeGenerator):
 			self.visit(node.arg, frame)
 			self.write(']')
 	
+	def for_targets(self, node, loopvar, frame, pre=''):
+		
+		self.newline()
+		if isinstance(node, nodes.Tuple):
+			for i, target in enumerate(node.items):
+				frame.identifiers.declared.add(target.name)
+				self.write('var ')
+				self.visit(target, frame)
+				bits = pre + loopvar, pre + loopvar, i
+				self.write(' = %s.iter[%s.i][%s];' % bits)
+				self.newline()
+		else:
+			frame.identifiers.declared.add(node.name)
+			self.write('var ')
+			self.visit(node, frame)
+			self.write(' = %s.iter[%s.i];' % (pre + loopvar, pre + loopvar))
+	
 	def visit_For(self, node, frame):
 		
 		before = frame.identifiers.declared.copy()
@@ -305,9 +322,39 @@ class JSCodeGen(CodeGenerator):
 		frame.identifiers.declared.add(loopvar)
 		frame.identifiers.declared.add('loop')
 		
+		if node.test:
+			
+			self.newline()
+			self.write('var f%s = Jasinja.utils.loop(' % loopvar)
+			self.visit(node.iter, frame)
+			self.write(');')
+			self.newline()
+			
+			vars = (loopvar,) * 4
+			self.writeline('var g%s = [];' % loopvar)
+			self.writeline('for (f%s.i = 0; f%s.i < f%s.l; f%s.i++) {' % vars)
+			self.indent()
+			
+			self.newline()
+			self.for_targets(node.target, loopvar, frame, 'f')
+			self.newline()
+			self.write('if (!')
+			self.visit(node.test, frame)
+			self.write(') continue;')
+			self.newline()
+			
+			bits = (loopvar,) * 3
+			self.write('g%s.push(f%s.iter[f%s.i]);' % bits)
+			self.outdent()
+			self.writeline('}')
+			self.writeline('')
+		
 		self.newline()
 		self.write('var %s = Jasinja.utils.loop(' % loopvar)
-		self.visit(node.iter, frame)
+		if not node.test:
+			self.visit(node.iter, frame)
+		else:
+			self.write('g%s' % loopvar)
 		self.write(');')
 		
 		self.newline()
@@ -316,27 +363,7 @@ class JSCodeGen(CodeGenerator):
 		self.indent()
 		self.writeline('')
 		
-		self.newline()
-		if isinstance(node.target, nodes.Tuple):
-			for i, target in enumerate(node.target.items):
-				frame.identifiers.declared.add(target.name)
-				self.write('var ')
-				self.visit(target, frame)
-				bits = loopvar, loopvar, i
-				self.write(' = %s.iter[%s.i][%s];' % bits)
-				self.newline()
-		else:
-			frame.identifiers.declared.add(node.target.name)
-			self.write('var ')
-			self.visit(node.target, frame)
-			self.write(' = %s.iter[%s.i];' % (loopvar, loopvar))
-		
-		if node.test:
-			self.newline()
-			self.write('if (!')
-			self.visit(node.test, frame)
-			self.write(') continue;')
-		
+		self.for_targets(node.target, loopvar, frame)
 		self.writeline('loop = %s;' % loopvar);
 		self.writeline('loop.update();')
 		self.writeline('')
