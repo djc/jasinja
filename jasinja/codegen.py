@@ -77,7 +77,7 @@ class JSCodeGen(CodeGenerator):
 	
 	def visit_Include(self, node, frame):
 		self.newline()
-		self.write('%s.push(templates[' % frame.buffer)
+		self.write('%s.push(Jasinja.templates[' % frame.buffer)
 		self.visit(node.template, frame)
 		self.write('].render(ctx));')
 		self.newline()
@@ -133,7 +133,7 @@ class JSCodeGen(CodeGenerator):
 		extends = node.find(nodes.Extends)
 		if extends:
 			self.newline()
-			self.write('return templates[')
+			self.write('return Jasinja.templates[')
 			self.visit(extends.template, frame)
 			self.write('].render(ctx, this);')
 		else:
