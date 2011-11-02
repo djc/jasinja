@@ -363,9 +363,10 @@ class JSCodeGen(CodeGenerator):
 		args = [None] * (len(spec))
 		for i, arg in enumerate(node.args):
 			args[i] = arg
-		
 		for arg in node.kwargs:
 			args[spec[arg.key]] = arg.value
+		while args and args[-1] is None:
+			args.pop()
 		
 		for n in args:
 			self.write(', ')
