@@ -1,0 +1,7 @@
+{% macro test(loop, x) %}
+	{% for l in x %}{{ l }}{% endfor %}
+	{{ loop.index0 }}
+{% endmacro %}
+{% for i in x %}
+	{{ test(loop, x) }}
+{% endfor %}

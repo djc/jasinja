@@ -135,6 +135,7 @@ TESTS = [
 	('{% macro a(b, c=1) %}{{ b }}{{ c }}{% endmacro %}{{ a(3) }}', {}),
 	('{% for x in y if x % 2 %}{{ x }}{% endfor %}', {'y': range(6)}),
 	(testfile('loop-filter.txt'), {'y': range(6)}),
+	(testfile('loop-shadow.txt'), {'x': [0, 1, 2]}),
 ]
 
 def loader(i):

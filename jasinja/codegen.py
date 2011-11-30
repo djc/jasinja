@@ -319,9 +319,11 @@ class JSCodeGen(CodeGenerator):
 		
 		before = frame.identifiers.declared.copy()
 		loopvar = nextvar(frame, '_loopvar')
+		if loopvar.endswith('0') and 'loop' in frame.identifiers.declared:
+			self.writeline('var _pre_loop = loop;')
+		
 		frame.identifiers.declared.add(loopvar)
 		frame.identifiers.declared.add('loop')
-		
 		if node.test:
 			
 			self.newline()
@@ -378,6 +380,8 @@ class JSCodeGen(CodeGenerator):
 			self.writeline('loop = _loopvar%s;' % (int(loopvar[8:]) - 1))
 		
 		frame.identifiers.declared = before
+		if loopvar.endswith('0') and 'loop' in frame.identifiers.declared:
+			self.writeline('loop = _pre_loop;')
 	
 	def visit_Filter(self, node, frame):
 		
