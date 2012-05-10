@@ -24,6 +24,9 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     packages=['jasinja', 'jasinja.tests'],
+    package_data={
+        'jasinja': ['*.js']
+    },
     install_requires=requires,
     test_suite='jasinja.tests.run.suite',
     entry_points={
