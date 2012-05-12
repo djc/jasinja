@@ -3,7 +3,7 @@ import jasinja, sys
 
 requires = ['Jinja2']
 if sys.version_info < (2, 6):
-    requirements += ['simplejson']
+    requires += ['simplejson']
 
 setup(
     name='jasinja',
