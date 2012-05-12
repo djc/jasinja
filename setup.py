@@ -13,6 +13,7 @@ setup(
     author='Dirkjan Ochtman',
     author_email='dirkjan@ochtman.nl',
     description='A JavaScript code generator for Jinja templates',
+    long_description=open('README.txt').read(),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
