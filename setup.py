@@ -29,6 +29,7 @@ setup(
     },
     install_requires=requires,
     test_suite='jasinja.tests.run.suite',
+    test_requires=['python-spidermonkey'],
     entry_points={
     	'console_scripts': ['jasinja-compile = jasinja.compile:main'],
     },
